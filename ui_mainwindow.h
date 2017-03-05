@@ -1,0 +1,334 @@
+/********************************************************************************
+** Form generated from reading UI file 'MainWindow.ui'
+**
+** Created by: Qt User Interface Compiler version 5.8.0
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
+
+#ifndef UI_MAINWINDOW_H
+#define UI_MAINWINDOW_H
+
+#include <QtCore/QVariant>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
+
+QT_BEGIN_NAMESPACE
+
+class Ui_MainWindow
+{
+public:
+    QWidget *centralwidget;
+    QGridLayout *s_mainWindowGridLayout;
+    QSpacerItem *horizontalSpacer;
+    QGroupBox *s_drawGB;
+    QGridLayout *gridLayout_2;
+    QFrame *line_4;
+    QFrame *line;
+    QCheckBox *m_rain;
+    QFrame *line_3;
+    QLabel *label;
+    QCheckBox *m_snow;
+    QLabel *label_6;
+    QFrame *line_9;
+    QGroupBox *groupBox;
+    QGridLayout *gridLayout;
+    QFrame *line_5;
+    QLabel *label_3;
+    QSlider *horizontalSlider_2;
+    QFrame *line_6;
+    QLabel *label_4;
+    QHBoxLayout *horizontalLayout;
+    QRadioButton *radioButton_4;
+    QRadioButton *radioButton_3;
+    QHBoxLayout *horizontalLayout_2;
+    QRadioButton *radioButton_2;
+    QRadioButton *radioButton;
+    QFrame *line_7;
+    QLabel *label_5;
+    QVBoxLayout *verticalLayout_2;
+    QRadioButton *radioButton_7;
+    QRadioButton *radioButton_6;
+    QRadioButton *radioButton_5;
+    QFrame *line_8;
+    QLabel *label_2;
+    QSlider *weatherStrength;
+    QFrame *line_2;
+    QSlider *horizontalSlider;
+    QMenuBar *menubar;
+    QStatusBar *statusbar;
+
+    void setupUi(QMainWindow *MainWindow)
+    {
+        if (MainWindow->objectName().isEmpty())
+            MainWindow->setObjectName(QStringLiteral("MainWindow"));
+        MainWindow->resize(972, 656);
+        centralwidget = new QWidget(MainWindow);
+        centralwidget->setObjectName(QStringLiteral("centralwidget"));
+        s_mainWindowGridLayout = new QGridLayout(centralwidget);
+        s_mainWindowGridLayout->setObjectName(QStringLiteral("s_mainWindowGridLayout"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        s_mainWindowGridLayout->addItem(horizontalSpacer, 0, 0, 1, 1);
+
+        s_drawGB = new QGroupBox(centralwidget);
+        s_drawGB->setObjectName(QStringLiteral("s_drawGB"));
+        gridLayout_2 = new QGridLayout(s_drawGB);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        line_4 = new QFrame(s_drawGB);
+        line_4->setObjectName(QStringLiteral("line_4"));
+        line_4->setFrameShape(QFrame::HLine);
+        line_4->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_2->addWidget(line_4, 0, 0, 1, 1);
+
+        line = new QFrame(s_drawGB);
+        line->setObjectName(QStringLiteral("line"));
+        line->setFrameShape(QFrame::HLine);
+        line->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_2->addWidget(line, 13, 0, 1, 1);
+
+        m_rain = new QCheckBox(s_drawGB);
+        m_rain->setObjectName(QStringLiteral("m_rain"));
+
+        gridLayout_2->addWidget(m_rain, 2, 0, 1, 1);
+
+        line_3 = new QFrame(s_drawGB);
+        line_3->setObjectName(QStringLiteral("line_3"));
+        line_3->setFrameShape(QFrame::HLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_2->addWidget(line_3, 4, 0, 1, 1);
+
+        label = new QLabel(s_drawGB);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout_2->addWidget(label, 5, 0, 1, 1);
+
+        m_snow = new QCheckBox(s_drawGB);
+        m_snow->setObjectName(QStringLiteral("m_snow"));
+
+        gridLayout_2->addWidget(m_snow, 3, 0, 1, 1);
+
+        label_6 = new QLabel(s_drawGB);
+        label_6->setObjectName(QStringLiteral("label_6"));
+
+        gridLayout_2->addWidget(label_6, 9, 0, 1, 1);
+
+        line_9 = new QFrame(s_drawGB);
+        line_9->setObjectName(QStringLiteral("line_9"));
+        line_9->setFrameShape(QFrame::HLine);
+        line_9->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_2->addWidget(line_9, 8, 0, 1, 1);
+
+        groupBox = new QGroupBox(s_drawGB);
+        groupBox->setObjectName(QStringLiteral("groupBox"));
+        gridLayout = new QGridLayout(groupBox);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        line_5 = new QFrame(groupBox);
+        line_5->setObjectName(QStringLiteral("line_5"));
+        line_5->setFrameShape(QFrame::HLine);
+        line_5->setFrameShadow(QFrame::Sunken);
+
+        gridLayout->addWidget(line_5, 0, 0, 1, 1);
+
+        label_3 = new QLabel(groupBox);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout->addWidget(label_3, 1, 0, 1, 1);
+
+        horizontalSlider_2 = new QSlider(groupBox);
+        horizontalSlider_2->setObjectName(QStringLiteral("horizontalSlider_2"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(horizontalSlider_2->sizePolicy().hasHeightForWidth());
+        horizontalSlider_2->setSizePolicy(sizePolicy);
+        horizontalSlider_2->setOrientation(Qt::Horizontal);
+
+        gridLayout->addWidget(horizontalSlider_2, 2, 0, 1, 1);
+
+        line_6 = new QFrame(groupBox);
+        line_6->setObjectName(QStringLiteral("line_6"));
+        line_6->setFrameShape(QFrame::HLine);
+        line_6->setFrameShadow(QFrame::Sunken);
+
+        gridLayout->addWidget(line_6, 3, 0, 1, 1);
+
+        label_4 = new QLabel(groupBox);
+        label_4->setObjectName(QStringLiteral("label_4"));
+
+        gridLayout->addWidget(label_4, 4, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        radioButton_4 = new QRadioButton(groupBox);
+        radioButton_4->setObjectName(QStringLiteral("radioButton_4"));
+
+        horizontalLayout->addWidget(radioButton_4);
+
+        radioButton_3 = new QRadioButton(groupBox);
+        radioButton_3->setObjectName(QStringLiteral("radioButton_3"));
+
+        horizontalLayout->addWidget(radioButton_3);
+
+
+        gridLayout->addLayout(horizontalLayout, 5, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        radioButton_2 = new QRadioButton(groupBox);
+        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
+
+        horizontalLayout_2->addWidget(radioButton_2);
+
+        radioButton = new QRadioButton(groupBox);
+        radioButton->setObjectName(QStringLiteral("radioButton"));
+
+        horizontalLayout_2->addWidget(radioButton);
+
+
+        gridLayout->addLayout(horizontalLayout_2, 6, 0, 1, 1);
+
+        line_7 = new QFrame(groupBox);
+        line_7->setObjectName(QStringLiteral("line_7"));
+        line_7->setFrameShape(QFrame::HLine);
+        line_7->setFrameShadow(QFrame::Sunken);
+
+        gridLayout->addWidget(line_7, 7, 0, 1, 1);
+
+        label_5 = new QLabel(groupBox);
+        label_5->setObjectName(QStringLiteral("label_5"));
+
+        gridLayout->addWidget(label_5, 8, 0, 1, 1);
+
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        radioButton_7 = new QRadioButton(groupBox);
+        radioButton_7->setObjectName(QStringLiteral("radioButton_7"));
+
+        verticalLayout_2->addWidget(radioButton_7);
+
+        radioButton_6 = new QRadioButton(groupBox);
+        radioButton_6->setObjectName(QStringLiteral("radioButton_6"));
+
+        verticalLayout_2->addWidget(radioButton_6);
+
+        radioButton_5 = new QRadioButton(groupBox);
+        radioButton_5->setObjectName(QStringLiteral("radioButton_5"));
+
+        verticalLayout_2->addWidget(radioButton_5);
+
+
+        gridLayout->addLayout(verticalLayout_2, 9, 0, 1, 1);
+
+        line_8 = new QFrame(groupBox);
+        line_8->setObjectName(QStringLiteral("line_8"));
+        line_8->setFrameShape(QFrame::HLine);
+        line_8->setFrameShadow(QFrame::Sunken);
+
+        gridLayout->addWidget(line_8, 10, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupBox, 12, 0, 1, 1);
+
+        label_2 = new QLabel(s_drawGB);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        gridLayout_2->addWidget(label_2, 1, 0, 1, 1);
+
+        weatherStrength = new QSlider(s_drawGB);
+        weatherStrength->setObjectName(QStringLiteral("weatherStrength"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(weatherStrength->sizePolicy().hasHeightForWidth());
+        weatherStrength->setSizePolicy(sizePolicy1);
+        weatherStrength->setOrientation(Qt::Horizontal);
+
+        gridLayout_2->addWidget(weatherStrength, 7, 0, 1, 1);
+
+        line_2 = new QFrame(s_drawGB);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_2->addWidget(line_2, 11, 0, 1, 1);
+
+        horizontalSlider = new QSlider(s_drawGB);
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        QSizePolicy sizePolicy2(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(horizontalSlider->sizePolicy().hasHeightForWidth());
+        horizontalSlider->setSizePolicy(sizePolicy2);
+        horizontalSlider->setOrientation(Qt::Horizontal);
+
+        gridLayout_2->addWidget(horizontalSlider, 10, 0, 1, 1);
+
+
+        s_mainWindowGridLayout->addWidget(s_drawGB, 0, 1, 1, 1);
+
+        MainWindow->setCentralWidget(centralwidget);
+        menubar = new QMenuBar(MainWindow);
+        menubar->setObjectName(QStringLiteral("menubar"));
+        menubar->setGeometry(QRect(0, 0, 972, 22));
+        MainWindow->setMenuBar(menubar);
+        statusbar = new QStatusBar(MainWindow);
+        statusbar->setObjectName(QStringLiteral("statusbar"));
+        MainWindow->setStatusBar(statusbar);
+
+        retranslateUi(MainWindow);
+
+        QMetaObject::connectSlotsByName(MainWindow);
+    } // setupUi
+
+    void retranslateUi(QMainWindow *MainWindow)
+    {
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Rain-Snow Simulation", Q_NULLPTR));
+        s_drawGB->setTitle(QApplication::translate("MainWindow", "Basic Controls", Q_NULLPTR));
+        m_rain->setText(QApplication::translate("MainWindow", "Rain", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "Strength of Weather", Q_NULLPTR));
+        m_snow->setText(QApplication::translate("MainWindow", "Snow", Q_NULLPTR));
+        label_6->setText(QApplication::translate("MainWindow", "Number of Particles", Q_NULLPTR));
+        groupBox->setTitle(QApplication::translate("MainWindow", "Interactive Controls", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "Wind Speed", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindow", "Wind Direction", Q_NULLPTR));
+        radioButton_4->setText(QApplication::translate("MainWindow", "North", Q_NULLPTR));
+        radioButton_3->setText(QApplication::translate("MainWindow", "East", Q_NULLPTR));
+        radioButton_2->setText(QApplication::translate("MainWindow", "South", Q_NULLPTR));
+        radioButton->setText(QApplication::translate("MainWindow", "West", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindow", "Interaction with Objects", Q_NULLPTR));
+        radioButton_7->setText(QApplication::translate("MainWindow", "Scene 1", Q_NULLPTR));
+        radioButton_6->setText(QApplication::translate("MainWindow", "Scene 2", Q_NULLPTR));
+        radioButton_5->setText(QApplication::translate("MainWindow", "Scene 3", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindow", "Choose Simulation", Q_NULLPTR));
+    } // retranslateUi
+
+};
+
+namespace Ui {
+    class MainWindow: public Ui_MainWindow {};
+} // namespace Ui
+
+QT_END_NAMESPACE
+
+#endif // UI_MAINWINDOW_H
