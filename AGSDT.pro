@@ -20,11 +20,19 @@ CONFIG-=app_bundle
 SOURCES+= $$PWD/src/NGLScene.cpp \
           $$PWD/src/NGLSceneMouseControls.cpp \
           $$PWD/src/MainWindow.cpp \
-          $$PWD/src/main.cpp
+          $$PWD/src/main.cpp \
+          $$PWD/src/Particle.cpp \
+          $$PWD/src/ParticleManager.cpp \
+          $$PWD/src/BBox.cpp \
+          $$PWD/src/Scenes.cpp
 # same for the .h files
 HEADERS+= $$PWD/include/NGLScene.h \
           $$PWD/include/MainWindow.h \
-          $$PWD/include/WindowParams.h
+          $$PWD/include/WindowParams.h \
+          $$PWD/include/Particle.h \
+          $$PWD/include/ParticleManager.h \
+          $$PWD/include/BBox.h \
+          $$PWD/include/Scenes.h
 
 OTHER_FILES+= shaders/*.glsl \
 FORMS+= $$PWD/ui/MainWindow.ui
