@@ -11,6 +11,7 @@
 #include <QOpenGLWidget>
 #include <memory>
 #include "WindowParams.h"
+#include "ParticleManager.h"
 
 
 /// @file NGLScene.h
@@ -38,12 +39,21 @@ public slots :
     void toggleRain(bool _rain);
     void toggleSnow(bool _snow);
     void weatherStrength(int _strength);
+    void weatherHeaviness(int _heaviness);
+    void toggleScene1(bool _scene1);
+    void toggleScene2(bool _scene2);
+    void toggleScene3(bool _scene3);
 
 private :
     //testing signals and slots
     bool m_rain;
     bool m_snow;
     int m_weatherStrength;
+    int m_weatherHeaviness;
+    bool m_scene1;
+    bool m_scene2;
+    bool m_scene3;
+    ParticleManager userValues;
 
 public:
     //----------------------------------------------------------------------------------------------------------------------

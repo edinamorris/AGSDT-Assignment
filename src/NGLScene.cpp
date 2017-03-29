@@ -1,4 +1,5 @@
 #include "NGLScene.h"
+#include "ParticleManager.h"
 #include <iostream>
 #include <ngl/Vec3.h>
 #include <ngl/Light.h>
@@ -20,6 +21,10 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     this->resize(_parent->size());
     m_rain=false;
     m_snow=false;
+    m_scene1=false;
+    m_scene2=false;
+    m_scene3=false;
+    m_weatherHeaviness=0;
     m_weatherStrength=0;
     m_fpsTimer =startTimer(0);
     m_fps=0;
@@ -289,22 +294,65 @@ void NGLScene::timerEvent(QTimerEvent *_event)
          }
     // re-draw GL
     update();
+    //update particleManager - runs all functions which calculates particles new positions
 }
 
 void NGLScene::toggleSnow(bool _snow)
 {
     m_snow=_snow;
-    std::cout<<"Snowing \n";
+    if(m_snow==true)
+    {
+        std::cout<<"Snowing \n";
+        m_rain=false;
+        userValues.setSnow(false);
+    }
+    userValues.setSnow(_snow);
 }
 
 void NGLScene::toggleRain(bool _rain)
 {
     m_rain=_rain;
-    std::cout<<"Raining \n";
+    if(m_rain==true)
+    {
+        std::cout<<"Raining \n";
+        m_snow=false;
+        userValues.setSnow(false);
+    }
+    userValues.setRain(_rain);
 }
 
 void NGLScene::weatherStrength(int _strength)
 {
     m_weatherStrength=_strength;
     std::cout<<"Weather strength is > "<<m_weatherStrength<<"\n";
+    userValues.setWindStrength(_strength);
 }
+
+void NGLScene::weatherHeaviness(int _heaviness)
+{
+    m_weatherHeaviness=_heaviness;
+    std::cout<<"Weather heaviness is > "<<m_weatherHeaviness<<"\n";
+    userValues.setHeaviness(_heaviness);
+}
+
+void NGLScene::toggleScene1(bool _scene1)
+{
+    m_scene1=_scene1;
+    std::cout<<"scene 1\n";
+    userValues.setScene(1);
+}
+
+void NGLScene::toggleScene2(bool _scene2)
+{
+    m_scene2=_scene2;
+    std::cout<<"scene 2\n";
+    userValues.setScene(2);
+}
+
+void NGLScene::toggleScene3(bool _scene3)
+{
+    m_scene3=_scene3;
+    std::cout<<"scene 3\n";
+    userValues.setScene(3);
+}
+
