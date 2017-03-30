@@ -10,6 +10,7 @@ public:
     ~ParticleManager();
     //creation
     void addParticle();
+    Particle *system;
     //updating
     void calculateNewPos();
     void updateHeaviness();
@@ -36,7 +37,6 @@ public:
 
 private:
     int m_numberParticles;
-    Particle *system;
     //User defined values using UI
     int m_windStrength;
     int m_heaviness; //thickness of rainfall

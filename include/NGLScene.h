@@ -54,6 +54,7 @@ private :
     bool m_scene2;
     bool m_scene3;
     ParticleManager userValues;
+    ParticleManager particleSystem;
 
 public:
     //----------------------------------------------------------------------------------------------------------------------

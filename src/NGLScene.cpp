@@ -9,6 +9,8 @@
 #include <ngl/ShaderLib.h>
 #include <QColorDialog>
 #include <QFont>
+#include <time.h>
+
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -31,6 +33,7 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_frames=0;
     m_timer.start();
     m_polyMode=GL_FILL;
+    srand (time(NULL));
 }
 
 void NGLScene::loadTexture()
@@ -184,7 +187,7 @@ void NGLScene::initializeGL()
     // Now we will create a basic Camera from the graphics library
     // This is a static camera so it only needs to be set once
     // First create Values for the camera position
-    ngl::Vec3 from( 0, 1, 2 );
+    ngl::Vec3 from( 50, 10, 1);
     ngl::Vec3 to( 0, 0, 0 );
     ngl::Vec3 up( 0, 1, 0 );
     // now load to our new camera
@@ -249,21 +252,21 @@ void NGLScene::paintGL()
     glBindTexture(GL_TEXTURE_2D,m_textureName);
     glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
 
-    //looping through to create a grid of cubes will replace with particle system
-    for (float z=-14; z<15; z+=0.5)
+    //drawing particles
+    for(int i=0; i<particleSystem.getNumberOfParticles(); i++)
     {
-        for (float x=-14; x<15; x+=0.5)
+        m_transform.reset();
         {
-            m_transform.reset();
-            {
-                m_transform.setRotation(x*20,(x*z)*40,z*2);
-                m_transform.setPosition(x,0.49,z);
-                loadMatricesToShader();
-                ++instances;
-                glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
-            }
+            ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
+            m_transform.setPosition(particlePosition.m_x,
+                                    particlePosition.m_y,
+                                    particlePosition.m_z);
+            loadMatricesToShader();
+            ++instances;
+            glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
         }
     }
+
     // calculate and draw FPS
     ++m_frames;
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
@@ -295,6 +298,7 @@ void NGLScene::timerEvent(QTimerEvent *_event)
     // re-draw GL
     update();
     //update particleManager - runs all functions which calculates particles new positions
+    particleSystem.update();
 }
 
 void NGLScene::toggleSnow(bool _snow)
