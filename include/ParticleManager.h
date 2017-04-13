@@ -38,7 +38,7 @@ public:
 private:
     int m_numberParticles;
     //User defined values using UI
-    int m_windStrength;
+    float m_windStrength;
     int m_heaviness; //thickness of rainfall
     int m_scene;
     bool m_rain;

@@ -1,7 +1,7 @@
 #include "Particle.h"
 
 Particle::Particle(float _maxLife, float _life, float _size, ngl::Vec3 _acceleration, ngl::Vec3 _position,
-                   ngl::Vec3 _direction)
+                   ngl::Vec3 _direction, ngl::Vec3 _rotation)
 {
     m_maxLife=_maxLife;
     m_life=_life;
@@ -9,6 +9,7 @@ Particle::Particle(float _maxLife, float _life, float _size, ngl::Vec3 _accelera
     m_acceleration=_acceleration;
     m_position=_position;
     m_direction=_direction;
+    m_rotation=_rotation;
 }
 
 Particle::Particle()

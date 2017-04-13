@@ -36,7 +36,8 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     srand (time(NULL));
 }
 
-void NGLScene::loadTexture()
+//snow texture
+void NGLScene::loadTextureSnow()
 {
     QImage image;
     bool loaded=image.load("textures/snowflake.bmp");
@@ -60,8 +61,82 @@ void NGLScene::loadTexture()
             }
         }
 
-    glGenTextures(1,&m_textureName);
-    glBindTexture(GL_TEXTURE_2D,m_textureName);
+    glGenTextures(1,&m_textureNameSnow);
+    glBindTexture(GL_TEXTURE_2D,m_textureNameSnow);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+
+    glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
+
+    }
+}
+
+//rain texture
+void NGLScene::loadTextureRain()
+{
+    QImage image;
+    bool loaded=image.load("textures/raindrop.bmp");
+    if(loaded == true)
+    {
+        int width=image.width();
+        int height=image.height();
+
+        unsigned char *data = new unsigned char[ width*height*3];
+        unsigned int index=0;
+        QRgb colour;
+        for( int y=0; y<height; ++y)
+        {
+            for( int x=0; x<width; ++x)
+            {
+                colour=image.pixel(x,y);
+
+                data[index++]=qRed(colour);
+                data[index++]=qGreen(colour);
+                data[index++]=qBlue(colour);
+            }
+        }
+
+    glGenTextures(1,&m_textureNameRain);
+    glBindTexture(GL_TEXTURE_2D,m_textureNameRain);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+
+    glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
+
+    }
+}
+
+//rain texture
+void NGLScene::loadTextureFloor()
+{
+    QImage image;
+    bool loaded=image.load("textures/grass.bmp");
+    if(loaded == true)
+    {
+        int width=image.width();
+        int height=image.height();
+
+        unsigned char *data = new unsigned char[ width*height*3];
+        unsigned int index=0;
+        QRgb colour;
+        for( int y=0; y<height; ++y)
+        {
+            for( int x=0; x<width; ++x)
+            {
+                colour=image.pixel(x,y);
+
+                data[index++]=qRed(colour);
+                data[index++]=qGreen(colour);
+                data[index++]=qBlue(colour);
+            }
+        }
+
+    glGenTextures(1,&m_textureNameFloor);
+    glBindTexture(GL_TEXTURE_2D,m_textureNameFloor);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
@@ -180,7 +255,9 @@ void NGLScene::initializeGL()
     //m.loadToShader( "material" );
 
     createCube(0.2);
-    loadTexture();
+    loadTextureSnow();
+    loadTextureRain();
+    loadTextureFloor();
     m_text.reset( new ngl::Text(QFont("Arial",14)));
     m_text->setScreenSize(width(),height());
 
@@ -247,23 +324,65 @@ void NGLScene::paintGL()
     // now we bind back our vertex array object and draw
     glBindVertexArray(m_vaoID);		// select first VAO
 
-    int instances=0;
-    // need to bind the active texture before drawing
-    glBindTexture(GL_TEXTURE_2D,m_textureName);
+    glBindTexture(GL_TEXTURE_2D,m_textureNameFloor);
     glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
+    //floor
+    m_transform.reset();
+    m_transform.setPosition(0, -10, 0);
+    m_transform.setScale(100.0, 1.0, 100.0);
+    loadMatricesToShader();
+    glDrawArrays(GL_TRIANGLES, 0,36 );
 
-    //drawing particles
-    for(int i=0; i<particleSystem.getNumberOfParticles(); i++)
+    int instances=0;
+
+    if(m_snow==true)
     {
-        m_transform.reset();
+        // need to bind the active texture before drawing
+        glBindTexture(GL_TEXTURE_2D,m_textureNameSnow);
+        glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
+        //drawing particles
+        for(int i=0; i<particleSystem.getNumberOfParticles(); i++)
         {
-            ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
-            m_transform.setPosition(particlePosition.m_x,
-                                    particlePosition.m_y,
-                                    particlePosition.m_z);
-            loadMatricesToShader();
-            ++instances;
-            glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
+            m_transform.reset();
+            {
+                ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
+                ngl::Vec3 particleRotation=particleSystem.system[i].getRotation();
+                m_transform.setPosition(particlePosition.m_x,
+                                        particlePosition.m_y,
+                                        particlePosition.m_z);
+                m_transform.setRotation(particleRotation.m_x,
+                                        particleRotation.m_y,
+                                        particleRotation.m_z);
+                m_transform.setScale(0.5,0.5,0.5);
+                loadMatricesToShader();
+                ++instances;
+                glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
+            }
+        }
+    }
+    else if(m_rain==true)
+    {
+        // need to bind the active texture before drawing
+        glBindTexture(GL_TEXTURE_2D,m_textureNameRain);
+        glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
+        //drawing particles
+        for(int i=0; i<particleSystem.getNumberOfParticles(); i++)
+        {
+            m_transform.reset();
+            {
+                ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
+                ngl::Vec3 particleRotation=particleSystem.system[i].getRotation();
+                m_transform.setPosition(particlePosition.m_x,
+                                        particlePosition.m_y,
+                                        particlePosition.m_z);
+                m_transform.setRotation(particleRotation.m_x,
+                                        particleRotation.m_y,
+                                        particleRotation.m_z);
+                m_transform.setScale(0.2,1.2,0.2);
+                loadMatricesToShader();
+                ++instances;
+                glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
+            }
         }
     }
 
@@ -281,7 +400,9 @@ void NGLScene::paintGL()
 NGLScene::~NGLScene()
 {
     // remove the texture now we are done
-    glDeleteTextures(1,&m_textureName);
+    glDeleteTextures(1,&m_textureNameRain);
+    glDeleteTextures(1,&m_textureNameSnow);
+    glDeleteTextures(1,&m_textureNameFloor);
 }
 
 void NGLScene::timerEvent(QTimerEvent *_event)
@@ -298,7 +419,10 @@ void NGLScene::timerEvent(QTimerEvent *_event)
     // re-draw GL
     update();
     //update particleManager - runs all functions which calculates particles new positions
-    particleSystem.update();
+    if(m_snow==true||m_rain==true)
+    {
+        particleSystem.update();
+    }
 }
 
 void NGLScene::toggleSnow(bool _snow)
@@ -308,9 +432,9 @@ void NGLScene::toggleSnow(bool _snow)
     {
         std::cout<<"Snowing \n";
         m_rain=false;
-        userValues.setSnow(false);
+        particleSystem.setSnow(false);
     }
-    userValues.setSnow(_snow);
+    particleSystem.setSnow(_snow);
 }
 
 void NGLScene::toggleRain(bool _rain)
@@ -320,43 +444,43 @@ void NGLScene::toggleRain(bool _rain)
     {
         std::cout<<"Raining \n";
         m_snow=false;
-        userValues.setSnow(false);
+        particleSystem.setSnow(false);
     }
-    userValues.setRain(_rain);
+    particleSystem.setRain(_rain);
 }
 
 void NGLScene::weatherStrength(int _strength)
 {
     m_weatherStrength=_strength;
     std::cout<<"Weather strength is > "<<m_weatherStrength<<"\n";
-    userValues.setWindStrength(_strength);
+    particleSystem.setWindStrength(_strength);
 }
 
 void NGLScene::weatherHeaviness(int _heaviness)
 {
     m_weatherHeaviness=_heaviness;
     std::cout<<"Weather heaviness is > "<<m_weatherHeaviness<<"\n";
-    userValues.setHeaviness(_heaviness);
+    particleSystem.setHeaviness(_heaviness);
 }
 
 void NGLScene::toggleScene1(bool _scene1)
 {
     m_scene1=_scene1;
     std::cout<<"scene 1\n";
-    userValues.setScene(1);
+    particleSystem.setScene(1);
 }
 
 void NGLScene::toggleScene2(bool _scene2)
 {
     m_scene2=_scene2;
     std::cout<<"scene 2\n";
-    userValues.setScene(2);
+    particleSystem.setScene(2);
 }
 
 void NGLScene::toggleScene3(bool _scene3)
 {
     m_scene3=_scene3;
     std::cout<<"scene 3\n";
-    userValues.setScene(3);
+    particleSystem.setScene(3);
 }
 

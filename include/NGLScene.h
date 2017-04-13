@@ -53,7 +53,7 @@ private :
     bool m_scene1;
     bool m_scene2;
     bool m_scene3;
-    ParticleManager userValues;
+
     ParticleManager particleSystem;
 
 public:
@@ -113,13 +113,20 @@ public:
     //----------------------------------------------------------------------------------------------------------------------
     GLuint m_vaoID;
     //----------------------------------------------------------------------------------------------------------------------
-    /// @brief load the texture and store the id in m_textureName
+    /// @brief load the snow texture and store the id in m_textureName
     //----------------------------------------------------------------------------------------------------------------------
-    void loadTexture();
+    void loadTextureSnow();
     //----------------------------------------------------------------------------------------------------------------------
-    /// @brief opengl texture id for the crate texture
+    /// @brief opengl texture id for the snow texture
     //----------------------------------------------------------------------------------------------------------------------
-    GLuint m_textureName;
+    GLuint m_textureNameSnow;
+    //rain texture
+    void loadTextureRain();
+    GLuint m_textureNameRain;
+    //floor texture
+    void loadTextureFloor();
+    GLuint m_textureNameFloor;
+
     //----------------------------------------------------------------------------------------------------------------------
     /// @brief our font / text
     //----------------------------------------------------------------------------------------------------------------------
