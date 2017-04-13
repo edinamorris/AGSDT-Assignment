@@ -28,11 +28,18 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_scene3=false;
     m_weatherHeaviness=0;
     m_weatherStrength=0;
+    m_windSpeed=0;
+    m_east=false;
+    m_north=false;
+    m_south=false;
+    m_west=false;
     m_fpsTimer =startTimer(0);
     m_fps=0;
     m_frames=0;
     m_timer.start();
     m_polyMode=GL_FILL;
+    m_modelPos.m_x=-30;
+    m_modelPos.m_y=-25;
     srand (time(NULL));
 }
 
@@ -310,7 +317,7 @@ void NGLScene::paintGL()
     ngl::Mat4 rotX;
     ngl::Mat4 rotY;
     // create the rotation matrices
-    rotX.rotateX( m_win.spinXFace );
+    rotX.rotateX( 0 );
     rotY.rotateY( m_win.spinYFace );
     // multiply the rotations
     m_mouseGlobalTX = rotY * rotX;
@@ -329,11 +336,12 @@ void NGLScene::paintGL()
     //floor
     m_transform.reset();
     m_transform.setPosition(0, -10, 0);
-    m_transform.setScale(100.0, 1.0, 100.0);
+    m_transform.setScale(200.0, 1.0, 200.0);
     loadMatricesToShader();
     glDrawArrays(GL_TRIANGLES, 0,36 );
 
     int instances=0;
+    float randomScale;
 
     if(m_snow==true)
     {
@@ -343,6 +351,7 @@ void NGLScene::paintGL()
         //drawing particles
         for(int i=0; i<particleSystem.getNumberOfParticles(); i++)
         {
+            randomScale=((float(rand()) / float(RAND_MAX)) * (0.1f - -0.1f)) + -0.1f;
             m_transform.reset();
             {
                 ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
@@ -353,7 +362,7 @@ void NGLScene::paintGL()
                 m_transform.setRotation(particleRotation.m_x,
                                         particleRotation.m_y,
                                         particleRotation.m_z);
-                m_transform.setScale(0.5,0.5,0.5);
+                m_transform.setScale((0.5+randomScale),(0.5+randomScale),(0.5+randomScale));
                 loadMatricesToShader();
                 ++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
@@ -368,6 +377,7 @@ void NGLScene::paintGL()
         //drawing particles
         for(int i=0; i<particleSystem.getNumberOfParticles(); i++)
         {
+            randomScale=((float(rand()) / float(RAND_MAX)) * (0.1f - -0.1f)) + -0.1f;
             m_transform.reset();
             {
                 ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
@@ -378,7 +388,7 @@ void NGLScene::paintGL()
                 m_transform.setRotation(particleRotation.m_x,
                                         particleRotation.m_y,
                                         particleRotation.m_z);
-                m_transform.setScale(0.2,1.2,0.2);
+                m_transform.setScale((0.2+randomScale),(1.2+randomScale),(0.2+randomScale));
                 loadMatricesToShader();
                 ++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
@@ -459,7 +469,7 @@ void NGLScene::weatherStrength(int _strength)
 void NGLScene::weatherHeaviness(int _heaviness)
 {
     m_weatherHeaviness=_heaviness;
-    std::cout<<"Weather heaviness is > "<<m_weatherHeaviness<<"\n";
+    std::cout<<"Weather heaviness (number of particles) is > "<<m_weatherHeaviness<<"\n";
     particleSystem.setHeaviness(_heaviness);
 }
 
@@ -484,3 +494,37 @@ void NGLScene::toggleScene3(bool _scene3)
     particleSystem.setScene(3);
 }
 
+void NGLScene::windSpeed(int _speed)
+{
+    m_windSpeed=_speed;
+    std::cout<<"Wind speed is > "<<m_windSpeed<<"\n";
+    particleSystem.setWindSpeed(_speed);
+}
+
+void NGLScene::toggleNorth(bool _north)
+{
+    m_north=_north;
+    std::cout<<"North \n";
+    particleSystem.setNorth(_north);
+}
+
+void NGLScene::toggleSouth(bool _south)
+{
+    m_south=_south;
+    std::cout<<"South \n";
+    particleSystem.setSouth(_south);
+}
+
+void NGLScene::toggleEast(bool _east)
+{
+    m_east=_east;
+    std::cout<<"East \n";
+    particleSystem.setEast(_east);
+}
+
+void NGLScene::toggleWest(bool _west)
+{
+    m_west=_west;
+    std::cout<<"West \n";
+    particleSystem.setWest(_west);
+}

@@ -45,15 +45,15 @@ public:
     QGridLayout *gridLayout;
     QFrame *line_5;
     QLabel *label_3;
-    QSlider *horizontalSlider_2;
+    QSlider *m_windSpeed;
     QFrame *line_6;
     QLabel *label_4;
     QHBoxLayout *horizontalLayout;
-    QRadioButton *radioButton_4;
-    QRadioButton *radioButton_3;
+    QRadioButton *m_north;
+    QRadioButton *m_east;
     QHBoxLayout *horizontalLayout_2;
-    QRadioButton *radioButton_2;
-    QRadioButton *radioButton;
+    QRadioButton *m_south;
+    QRadioButton *m_west;
     QFrame *line_7;
     QLabel *label_5;
     QVBoxLayout *verticalLayout_2;
@@ -78,7 +78,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(972, 673);
+        MainWindow->resize(972, 678);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         s_mainWindowGridLayout = new QGridLayout(centralwidget);
@@ -122,16 +122,16 @@ public:
 
         gridLayout->addWidget(label_3, 1, 0, 1, 1);
 
-        horizontalSlider_2 = new QSlider(groupBox);
-        horizontalSlider_2->setObjectName(QStringLiteral("horizontalSlider_2"));
+        m_windSpeed = new QSlider(groupBox);
+        m_windSpeed->setObjectName(QStringLiteral("m_windSpeed"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(horizontalSlider_2->sizePolicy().hasHeightForWidth());
-        horizontalSlider_2->setSizePolicy(sizePolicy);
-        horizontalSlider_2->setOrientation(Qt::Horizontal);
+        sizePolicy.setHeightForWidth(m_windSpeed->sizePolicy().hasHeightForWidth());
+        m_windSpeed->setSizePolicy(sizePolicy);
+        m_windSpeed->setOrientation(Qt::Horizontal);
 
-        gridLayout->addWidget(horizontalSlider_2, 2, 0, 1, 1);
+        gridLayout->addWidget(m_windSpeed, 2, 0, 1, 1);
 
         line_6 = new QFrame(groupBox);
         line_6->setObjectName(QStringLiteral("line_6"));
@@ -147,30 +147,30 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        radioButton_4 = new QRadioButton(groupBox);
-        radioButton_4->setObjectName(QStringLiteral("radioButton_4"));
+        m_north = new QRadioButton(groupBox);
+        m_north->setObjectName(QStringLiteral("m_north"));
 
-        horizontalLayout->addWidget(radioButton_4);
+        horizontalLayout->addWidget(m_north);
 
-        radioButton_3 = new QRadioButton(groupBox);
-        radioButton_3->setObjectName(QStringLiteral("radioButton_3"));
+        m_east = new QRadioButton(groupBox);
+        m_east->setObjectName(QStringLiteral("m_east"));
 
-        horizontalLayout->addWidget(radioButton_3);
+        horizontalLayout->addWidget(m_east);
 
 
         gridLayout->addLayout(horizontalLayout, 5, 0, 1, 1);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        radioButton_2 = new QRadioButton(groupBox);
-        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
+        m_south = new QRadioButton(groupBox);
+        m_south->setObjectName(QStringLiteral("m_south"));
 
-        horizontalLayout_2->addWidget(radioButton_2);
+        horizontalLayout_2->addWidget(m_south);
 
-        radioButton = new QRadioButton(groupBox);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
+        m_west = new QRadioButton(groupBox);
+        m_west->setObjectName(QStringLiteral("m_west"));
 
-        horizontalLayout_2->addWidget(radioButton);
+        horizontalLayout_2->addWidget(m_west);
 
 
         gridLayout->addLayout(horizontalLayout_2, 6, 0, 1, 1);
@@ -313,19 +313,19 @@ public:
         m_rain->setText(QApplication::translate("MainWindow", "Rain", Q_NULLPTR));
         m_snow->setText(QApplication::translate("MainWindow", "Snow", Q_NULLPTR));
         groupBox->setTitle(QApplication::translate("MainWindow", "Interactive Controls", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindow", "Wind Speed", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "Wind Strength", Q_NULLPTR));
         label_4->setText(QApplication::translate("MainWindow", "Wind Direction", Q_NULLPTR));
-        radioButton_4->setText(QApplication::translate("MainWindow", "North", Q_NULLPTR));
-        radioButton_3->setText(QApplication::translate("MainWindow", "East", Q_NULLPTR));
-        radioButton_2->setText(QApplication::translate("MainWindow", "South", Q_NULLPTR));
-        radioButton->setText(QApplication::translate("MainWindow", "West", Q_NULLPTR));
+        m_north->setText(QApplication::translate("MainWindow", "North", Q_NULLPTR));
+        m_east->setText(QApplication::translate("MainWindow", "East", Q_NULLPTR));
+        m_south->setText(QApplication::translate("MainWindow", "South", Q_NULLPTR));
+        m_west->setText(QApplication::translate("MainWindow", "West", Q_NULLPTR));
         label_5->setText(QApplication::translate("MainWindow", "Interaction with Objects", Q_NULLPTR));
         m_scene1->setText(QApplication::translate("MainWindow", "Scene 1", Q_NULLPTR));
         m_scene2->setText(QApplication::translate("MainWindow", "Scene 2", Q_NULLPTR));
         m_scene3->setText(QApplication::translate("MainWindow", "Scene 3", Q_NULLPTR));
         label_2->setText(QApplication::translate("MainWindow", "Choose Simulation", Q_NULLPTR));
         label_6->setText(QApplication::translate("MainWindow", "Number of Particles", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindow", "Strength of Weather", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "Speed of Weather", Q_NULLPTR));
     } // retranslateUi
 
 };

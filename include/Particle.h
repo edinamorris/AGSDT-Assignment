@@ -13,6 +13,7 @@ public:
     void draw();
     ngl::Vec3 getPosition(){return m_position;}
     ngl::Vec3 getRotation(){return m_rotation;}
+    bool getDead(){return m_dead;}
     void setPosition(ngl::Vec3 _position){m_position.m_x=_position.m_x;
                                           m_position.m_y=_position.m_y;
                                           m_position.m_z=_position.m_z;}
@@ -23,6 +24,7 @@ private:
     float m_maxLife;
     float m_life;
     float m_size;
+    bool m_dead;
     ngl::Vec3 m_position;
     ngl::Vec3 m_acceleration;
     ngl::Vec3 m_direction;

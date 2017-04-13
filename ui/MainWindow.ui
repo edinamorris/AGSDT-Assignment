@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>972</width>
-    <height>673</height>
+    <height>678</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -68,12 +68,12 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Wind Speed</string>
+             <string>Wind Strength</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QSlider" name="horizontalSlider_2">
+           <widget class="QSlider" name="m_windSpeed">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -102,14 +102,14 @@
           <item row="5" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QRadioButton" name="radioButton_4">
+             <widget class="QRadioButton" name="m_north">
               <property name="text">
                <string>North</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_3">
+             <widget class="QRadioButton" name="m_east">
               <property name="text">
                <string>East</string>
               </property>
@@ -120,14 +120,14 @@
           <item row="6" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QRadioButton" name="radioButton_2">
+             <widget class="QRadioButton" name="m_south">
               <property name="text">
                <string>South</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton">
+             <widget class="QRadioButton" name="m_west">
               <property name="text">
                <string>West</string>
               </property>
@@ -262,7 +262,7 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Strength of Weather</string>
+          <string>Speed of Weather</string>
          </property>
         </widget>
        </item>
