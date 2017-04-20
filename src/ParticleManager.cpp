@@ -18,8 +18,6 @@ ParticleManager::ParticleManager()
     //setting up particle system of rain/snow + temp value of adding 100 for each slider increment
     system=new Particle[m_numberParticles+(100*m_sliderIncrement)];
 
-    //not accurate rain would be fall straight without wind
-    //float randomRotationAll=rand()%360;
     //initial positions
     for(int i=0; i<m_numberParticles; i++)
     {
@@ -28,6 +26,11 @@ ParticleManager::ParticleManager()
         float randomZ =rand() %81 + (-40);
         ngl::Vec3 particlePosition=ngl::Vec3(randomX, randomY, randomZ);
         system[i].setPosition(particlePosition);
+        //snow drifting setup
+        float driftX=((float(rand()) / float(RAND_MAX)) * (0.01f - -0.01f)) + -0.01f;
+        float driftZ=((float(rand()) / float(RAND_MAX)) * (0.01f - -0.01f)) + -0.01f;
+        system[i].setDriftX(driftX);
+        system[i].setDriftZ(driftZ);
     }
 }
 
@@ -53,15 +56,27 @@ void ParticleManager::calculateNewPos()
     {
         m_windStrength=1.0;
     }
-    for(int i=0; i<m_numberParticles; i++)
+    if(m_rain==true)
     {
-        ngl::Vec3 currentPos=system[i].getPosition();
-        ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x, currentPos.m_y-=(0.1+(m_windStrength/300)), currentPos.m_z);
-        system[i].setPosition(newPosition);
-
-        /*ngl::Vec3 currentRot=system[i].getRotation();
-        ngl::Vec3 newRotation=ngl::Vec3(currentRot.m_x, currentRot.m_y+=1, currentRot.m_z);
-        system[i].setRotation(newRotation);*/
+        for(int i=0; i<m_numberParticles; i++)
+        {
+            ngl::Vec3 currentPos=system[i].getPosition();
+            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x, currentPos.m_y-=(0.1+(m_windStrength/300)), currentPos.m_z);
+            system[i].setPosition(newPosition);
+        }
+    }
+    //slower fall rate as mass is less and drag resistance is more
+    //snow drifts slightly, so adding random effect for x and z
+    else if(m_snow==true)
+    {
+        for(int i=0; i<m_numberParticles; i++)
+        {
+            ngl::Vec3 currentPos=system[i].getPosition();
+            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x+=system[i].getdriftX(),
+                                            currentPos.m_y-=(0.05+(m_windStrength/300)),
+                                            currentPos.m_z+=system[i].getdrfitZ());
+            system[i].setPosition(newPosition);
+        }
     }
 }
 

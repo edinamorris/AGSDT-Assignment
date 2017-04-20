@@ -47,7 +47,7 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
 void NGLScene::loadTextureSnow()
 {
     QImage image;
-    bool loaded=image.load("textures/snowflake.bmp");
+    bool loaded=image.load("textures/snowflake.png");
     if(loaded == true)
     {
         int width=image.width();
@@ -84,7 +84,7 @@ void NGLScene::loadTextureSnow()
 void NGLScene::loadTextureRain()
 {
     QImage image;
-    bool loaded=image.load("textures/raindrop.bmp");
+    bool loaded=image.load("textures/rain_0.png");
     if(loaded == true)
     {
         int width=image.width();
@@ -117,11 +117,11 @@ void NGLScene::loadTextureRain()
     }
 }
 
-//rain texture
+//surface texture
 void NGLScene::loadTextureFloor()
 {
     QImage image;
-    bool loaded=image.load("textures/grass.bmp");
+    bool loaded=image.load("textures/floor.bmp");
     if(loaded == true)
     {
         int width=image.width();
@@ -256,11 +256,6 @@ void NGLScene::initializeGL()
     // and make it active ready to load values
     ( *shader )[ shaderProgram ]->use();
 
-    // the shader will use the currently active material and light0 so set them
-    //ngl::Material m( ngl::STDMAT::GOLD );
-    // load our material values to the shader into the structure material (see Vertex shader)
-    //m.loadToShader( "material" );
-
     createCube(0.2);
     loadTextureSnow();
     loadTextureRain();
@@ -362,7 +357,7 @@ void NGLScene::paintGL()
                 m_transform.setRotation(particleRotation.m_x,
                                         particleRotation.m_y,
                                         particleRotation.m_z);
-                m_transform.setScale((0.5+randomScale),(0.5+randomScale),(0.5+randomScale));
+                m_transform.setScale((0.4+randomScale),(0.4+randomScale),(0.4+randomScale));
                 loadMatricesToShader();
                 ++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object

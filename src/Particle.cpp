@@ -1,14 +1,9 @@
 #include "Particle.h"
 
-Particle::Particle(float _maxLife, float _life, float _size, ngl::Vec3 _acceleration, ngl::Vec3 _position,
-                   ngl::Vec3 _direction, ngl::Vec3 _rotation)
+Particle::Particle(float _size, ngl::Vec3 _position, ngl::Vec3 _rotation, bool _particleDead)
 {
-    m_maxLife=_maxLife;
-    m_life=_life;
     m_size=_size;
-    m_acceleration=_acceleration;
     m_position=_position;
-    m_direction=_direction;
     m_rotation=_rotation;
 }
 
