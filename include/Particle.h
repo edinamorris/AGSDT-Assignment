@@ -9,7 +9,6 @@ public:
     Particle(float _size, ngl::Vec3 _position, ngl::Vec3 _rotation, bool _particleDead);
     Particle();
     ~Particle();
-    void draw();
     ngl::Vec3 getPosition(){return m_position;}
     ngl::Vec3 getRotation(){return m_rotation;}
     bool getDead(){return m_dead;}
@@ -21,6 +20,7 @@ public:
     void setRotation(ngl::Vec3 _rotation){m_rotation.m_x=_rotation.m_x;
                                           m_rotation.m_y=_rotation.m_y;
                                           m_rotation.m_z=_rotation.m_z;}
+    void setDead(bool _dead){m_dead=_dead;}
     //snow slight drifting
     void setDriftX(float _driftX){m_driftX=_driftX;}
     void setDriftZ(float _driftZ){m_driftZ=_driftZ;}

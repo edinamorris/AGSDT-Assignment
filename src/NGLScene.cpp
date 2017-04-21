@@ -38,8 +38,8 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_frames=0;
     m_timer.start();
     m_polyMode=GL_FILL;
-    m_modelPos.m_x=-30;
-    m_modelPos.m_y=-25;
+    m_modelPos.m_x=-40;
+    m_modelPos.m_y=-15;
     srand (time(NULL));
 }
 
@@ -154,6 +154,43 @@ void NGLScene::loadTextureFloor()
     }
 }
 
+//obstacles texture
+void NGLScene::loadTextureObstacle()
+{
+    QImage image;
+    bool loaded=image.load("textures/building.png");
+    if(loaded == true)
+    {
+        int width=image.width();
+        int height=image.height();
+
+        unsigned char *data = new unsigned char[ width*height*3];
+        unsigned int index=0;
+        QRgb colour;
+        for( int y=0; y<height; ++y)
+        {
+            for( int x=0; x<width; ++x)
+            {
+                colour=image.pixel(x,y);
+
+                data[index++]=qRed(colour);
+                data[index++]=qGreen(colour);
+                data[index++]=qBlue(colour);
+            }
+        }
+
+    glGenTextures(1,&m_textureNameObstacle);
+    glBindTexture(GL_TEXTURE_2D,m_textureNameObstacle);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+
+    glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
+
+    }
+}
+
 //----------------------------------------------------------------------------------------------------------------------
 /// @brief create a cube and stuff it into a VBO on the GPU
 /// @param[in] _scale a scale factor for the unit vertices
@@ -172,7 +209,7 @@ void NGLScene::createCube( GLfloat _scale )
                          };
     GLfloat texture[] = {
                         0,0,0,1,1,1 ,0,0,1,0,1,1, //back
-                        0,1,1,0,1,1 ,0,0,1,0,0,1, // front
+                        0,0,0,1,1,1 ,1,0,1,1,0,0, // front - had to fix, texture values were wrong
                         0,0,1,0,1,1 ,0,1,1,1,0,0, //top
                         0,0,1,0,1,1 ,0,1,1,1,0,0, //bottom
                         1,0,1,1,0,0 ,0,0,0,1,1,1, // left
@@ -260,13 +297,14 @@ void NGLScene::initializeGL()
     loadTextureSnow();
     loadTextureRain();
     loadTextureFloor();
+    loadTextureObstacle();
     m_text.reset( new ngl::Text(QFont("Arial",14)));
     m_text->setScreenSize(width(),height());
 
     // Now we will create a basic Camera from the graphics library
     // This is a static camera so it only needs to be set once
     // First create Values for the camera position
-    ngl::Vec3 from( 50, 10, 1);
+    ngl::Vec3 from( 50, 3, 1);
     ngl::Vec3 to( 0, 0, 0 );
     ngl::Vec3 up( 0, 1, 0 );
     // now load to our new camera
@@ -326,14 +364,33 @@ void NGLScene::paintGL()
     // now we bind back our vertex array object and draw
     glBindVertexArray(m_vaoID);		// select first VAO
 
+    //floor
     glBindTexture(GL_TEXTURE_2D,m_textureNameFloor);
     glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
-    //floor
     m_transform.reset();
     m_transform.setPosition(0, -10, 0);
     m_transform.setScale(200.0, 1.0, 200.0);
     loadMatricesToShader();
     glDrawArrays(GL_TRIANGLES, 0,36 );
+
+    //scene 1
+    if(m_scene1==true)
+    {
+        glBindTexture(GL_TEXTURE_2D,m_textureNameObstacle);
+        glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
+        //drawing obstacles
+        for(int i=-1; i<2; i++)
+        {
+            for(int j=-1; j<2; j++)
+            {
+                m_transform.reset();
+                m_transform.setPosition(i*20, 0, j*20);
+                m_transform.setScale(20.0, 50.0, 20.0);
+                loadMatricesToShader();
+                glDrawArrays(GL_TRIANGLES, 0,36 );
+            }
+        }
+    }
 
     int instances=0;
     float randomScale;
@@ -383,7 +440,7 @@ void NGLScene::paintGL()
                 m_transform.setRotation(particleRotation.m_x,
                                         particleRotation.m_y,
                                         particleRotation.m_z);
-                m_transform.setScale((0.2+randomScale),(1.2+randomScale),(0.2+randomScale));
+                m_transform.setScale((0.2+randomScale),(1.0+randomScale),(0.2+randomScale));
                 loadMatricesToShader();
                 ++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
@@ -397,9 +454,6 @@ void NGLScene::paintGL()
     m_text->setColour(0,0,0);
     QString text=QString("Particles %1  %2 fps").arg(instances).arg(m_fps);
     m_text->renderText(10,20,text);
-
-    //before textures
-    //prim->draw("cube");
 }
 
 NGLScene::~NGLScene()

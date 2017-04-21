@@ -13,12 +13,13 @@ public:
     void Scene3();
 
     void getBoundingBoxes();
+    bool floorCollide(Bbox _particle);
 
 private:
     int m_numberOfObstacles;
     //boudning boxes for obstacles, delete for each scene change and refill
-    //Bbox *m_sceneBoxes = new Bbox[m_numberOfObstacles];
-
+    Bbox *m_sceneBoxes;
+    Bbox m_floorBbox;
 };
 
 #endif //SCENES_H

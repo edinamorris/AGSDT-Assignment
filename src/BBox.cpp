@@ -21,7 +21,7 @@ Bbox::Bbox(float _xmin, float _xmax,float _ymin,float _ymax,float _zmin,float _z
  * @param _position
  * @param _size
  */
-Bbox::Bbox(const ngl::Vec4& _position, const ngl::Vec4& _size)
+Bbox::Bbox(const ngl::Vec3 &_position, const ngl::Vec3 &_size)
 {
   //setting up bounding box calculation variables
   m_xmin=_position.m_x;
@@ -39,7 +39,7 @@ Bbox::Bbox(const ngl::Vec4& _position, const ngl::Vec4& _size)
  */
 bool Bbox::checkCollisionUp(const Bbox& _Bbox)
 {
-  if(m_zmin-0.1 > _Bbox.m_zmax)
+  if(m_ymin-0.1 > _Bbox.m_ymax)
   {
     return false;
   }
@@ -53,123 +53,7 @@ bool Bbox::checkCollisionUp(const Bbox& _Bbox)
  */
 bool Bbox::checkCollisionDown(const Bbox& _Bbox)
 {
-  if(_Bbox.m_zmin > m_zmax+0.1)
-  {
-    return false;
-  }
-    return true;
-}
-
-/**
- * @brief Bbox::checkCollisionLeft
- * @param _Bbox
- * @return false if there isnt an left collision
- */
-bool Bbox::checkCollisionLeft(const Bbox& _Bbox)
-{
-  if(m_xmin-0.05 > _Bbox.m_xmax)
-  {
-    return false;
-  }
-    return true;
-}
-
-/**
- * @brief Bbox::checkCollisionPaddleSides
- * @param _Bbox
- * @return false if there isn't a collision with the paddle
- */
-bool Bbox::checkCollisionPaddleSides(const Bbox& _Bbox)
-{
-  if(_Bbox.m_zmax < m_zmin)
-  {
-    return false;
-  }
-
-  if(_Bbox.m_zmin > m_zmax)
-  {
-    return false;
-  }
-
-  if(m_xmax < _Bbox.m_xmin)
-  {
-    return false;
-  }
-
-  if(m_xmin > _Bbox.m_xmax)
-  {
-    return false;
-  }
-
-  return true;
-}
-
-/**
- * @brief Bbox::checkCollisionTopBot
- * @param _Bbox
- * @return false if there isn't a collison with the top and bottom of the object
- */
-bool Bbox::checkCollisionTopBot(const Bbox& _Bbox)
-{
-  if(_Bbox.m_zmax < m_zmin+0.3)
-  {
-    return false;
-  }
-
-  if(_Bbox.m_zmin > m_zmax)
-  {
-    return false;
-  }
-
-  if(m_xmax < _Bbox.m_xmin)
-  {
-    return false;
-  }
-
-  if(m_xmin > _Bbox.m_xmax)
-  {
-    return false;
-  }
-  return true;
-}
-
-/**
- * @brief Bbox::checkCollisionLeftSide
- * @param _Bbox
- * @return false if there isnt a collision with the left and right side of the object
- */
-bool Bbox::checkCollisionLeftSide(const Bbox& _Bbox)
-{
-  if(_Bbox.m_xmax < m_xmin)
-  {
-    return false;
-  }
-
-  if(m_zmax < _Bbox.m_zmin)
-  {
-    return false;
-  }
-
-  if(m_zmin-0.3 > _Bbox.m_zmax)
-  {
-    return false;
-  }
-
-  if(m_xmax < _Bbox.m_xmin)
-  {
-    return false;
-  }
-  return true;
-}
-
-/**
- * @brief Bbox::checkCollisionRight
- * @param _Bbox
- * @return false if there isnt an right collision
- */
-bool Bbox::checkCollisionRight(const Bbox& _Bbox)
-{
-  if(_Bbox.m_xmin > m_xmax+0.05)
+  if(_Bbox.m_ymin > m_ymax+0.1)
   {
     return false;
   }
@@ -181,7 +65,7 @@ bool Bbox::checkCollisionRight(const Bbox& _Bbox)
  * move bounding box
  * @param _offset
  */
-void Bbox::move(const ngl::Vec4& _offset){
+void Bbox::move(const ngl::Vec3 &_offset){
 
   m_xmax += _offset.m_x;
   m_xmin += _offset.m_x;

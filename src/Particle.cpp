@@ -5,6 +5,7 @@ Particle::Particle(float _size, ngl::Vec3 _position, ngl::Vec3 _rotation, bool _
     m_size=_size;
     m_position=_position;
     m_rotation=_rotation;
+    m_dead=false;
 }
 
 Particle::Particle()
@@ -17,7 +18,3 @@ Particle::~Particle()
     //clearing up particle memory
 }
 
-void Particle::draw()
-{
-    //drawing potentially should be dealt with in particle manager
-}

@@ -1,5 +1,6 @@
 #include "ParticleManager.h"
 #include "NGLScene.h"
+#include "Scenes.h"
 
 ParticleManager::ParticleManager()
 {
@@ -150,6 +151,7 @@ void ParticleManager::update()
     deleteOldParticles();
     outsideInfluenece();
     addParticle();
+    checkCollision();
 }
 
 //may not need this for now I'm just going to put positions of particles at top again
@@ -157,9 +159,9 @@ void ParticleManager::deleteOldParticles()
 {
     for(int i=0; i<m_numberParticles; i++)
     {
-        ngl::Vec3 currentPos=system[i].getPosition();
-        if((currentPos.m_y<=-10)||(system[i].getDead()))
+        if(system[i].getDead())
         {
+            system[i].setDead(false);
             float randomX =rand() %81 + (-40);
             float randomY =rand() %90 + (60);
             float randomZ =rand() %81 + (-40);
@@ -171,9 +173,34 @@ void ParticleManager::deleteOldParticles()
 
 void ParticleManager::checkCollision()
 {
-
+    Scenes collision;
+    for(int i=0; i<m_numberParticles; i++)
+    {
+        //different sized particles for rain and snow
+        if(m_snow==true)
+        {
+            ngl::Vec3 currentPos=system[i].getPosition();
+            if(collision.floorCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
+                                        ngl::Vec3(0.4,0.4,0.4))))
+            {
+                system[i].setDead(true);
+                //collide();
+            }
+        }
+        else if(m_rain==true)
+        {
+            ngl::Vec3 currentPos=system[i].getPosition();
+            if(collision.floorCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
+                                        ngl::Vec3(0.2,1.0,0.2))))
+            {
+                system[i].setDead(true);
+                //collide();
+            }
+        }
+    }
 }
 
+//snow particles will stick and melt, rain particles will splash and set off secondary particle system
 void ParticleManager::collide()
 {
 

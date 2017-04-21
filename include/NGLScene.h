@@ -137,6 +137,10 @@ public:
     void loadTextureFloor();
     GLuint m_textureNameFloor;
 
+    //obstacle texture
+    void loadTextureObstacle();
+    GLuint m_textureNameObstacle;
+
     //----------------------------------------------------------------------------------------------------------------------
     /// @brief our font / text
     //----------------------------------------------------------------------------------------------------------------------
