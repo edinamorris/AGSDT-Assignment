@@ -53,7 +53,8 @@ bool Bbox::checkCollisionUp(const Bbox& _Bbox)
  */
 bool Bbox::checkCollisionDown(const Bbox& _Bbox)
 {
-  if(_Bbox.m_ymin > m_ymax+0.1)
+  if((_Bbox.m_ymin > m_ymax+0.2)||(_Bbox.m_xmin > m_xmax+0.1)||(m_xmin-0.1>_Bbox.m_xmax)||
+          (_Bbox.m_zmin > m_zmax+0.1)||(m_zmin-0.1>_Bbox.m_zmax))
   {
     return false;
   }

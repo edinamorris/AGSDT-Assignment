@@ -12,7 +12,7 @@
 #include <memory>
 #include "WindowParams.h"
 #include "ParticleManager.h"
-
+#include "Scenes.h"
 
 /// @file NGLScene.h
 /// @brief a basic Qt GL window class for ngl demos
@@ -65,6 +65,7 @@ private :
     bool m_east;
 
     ParticleManager particleSystem;
+    Scenes objectCollision;
 
 public:
     //----------------------------------------------------------------------------------------------------------------------
@@ -140,6 +141,10 @@ public:
     //obstacle texture
     void loadTextureObstacle();
     GLuint m_textureNameObstacle;
+
+    //highrise texture
+    void loadTextureHighRise();
+    GLuint m_textureNameHighRise;
 
     //----------------------------------------------------------------------------------------------------------------------
     /// @brief our font / text

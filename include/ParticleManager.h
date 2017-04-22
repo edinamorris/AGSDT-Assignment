@@ -2,6 +2,7 @@
 #define PARTICLEMANAGER_H
 
 #include "Particle.h"
+#include "Scenes.h"
 
 class ParticleManager
 {
@@ -11,6 +12,7 @@ public:
     //creation
     void addParticle();
     Particle *system;
+    Scenes obstacles;
     //updating
     void calculateNewPos();
     void updateHeaviness();

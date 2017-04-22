@@ -2,7 +2,7 @@
 #define BBOX_H
 
 #include<iostream>
-#include "NGLScene.h"
+#include <ngl/Vec3.h>
 
 class Bbox
 {
@@ -12,6 +12,7 @@ public:
 
   bool checkCollisionUp(const Bbox& _Bbox);
   bool checkCollisionDown(const Bbox& _Bbox);
+  //need sides check
 
   void move( const ngl::Vec3& _offset);
 

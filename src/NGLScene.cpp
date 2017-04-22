@@ -39,7 +39,7 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_timer.start();
     m_polyMode=GL_FILL;
     m_modelPos.m_x=-40;
-    m_modelPos.m_y=-15;
+    m_modelPos.m_y=-5;
     srand (time(NULL));
 }
 
@@ -84,7 +84,7 @@ void NGLScene::loadTextureSnow()
 void NGLScene::loadTextureRain()
 {
     QImage image;
-    bool loaded=image.load("textures/rain_0.png");
+    bool loaded=image.load("textures/rain_1.png");
     if(loaded == true)
     {
         int width=image.width();
@@ -181,6 +181,43 @@ void NGLScene::loadTextureObstacle()
 
     glGenTextures(1,&m_textureNameObstacle);
     glBindTexture(GL_TEXTURE_2D,m_textureNameObstacle);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+
+    glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+
+    glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
+
+    }
+}
+
+//highrise texture
+void NGLScene::loadTextureHighRise()
+{
+    QImage image;
+    bool loaded=image.load("textures/highrise.bmp");
+    if(loaded == true)
+    {
+        int width=image.width();
+        int height=image.height();
+
+        unsigned char *data = new unsigned char[ width*height*3];
+        unsigned int index=0;
+        QRgb colour;
+        for( int y=0; y<height; ++y)
+        {
+            for( int x=0; x<width; ++x)
+            {
+                colour=image.pixel(x,y);
+
+                data[index++]=qRed(colour);
+                data[index++]=qGreen(colour);
+                data[index++]=qBlue(colour);
+            }
+        }
+
+    glGenTextures(1,&m_textureNameHighRise);
+    glBindTexture(GL_TEXTURE_2D,m_textureNameHighRise);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
@@ -298,14 +335,15 @@ void NGLScene::initializeGL()
     loadTextureRain();
     loadTextureFloor();
     loadTextureObstacle();
+    loadTextureHighRise();
     m_text.reset( new ngl::Text(QFont("Arial",14)));
     m_text->setScreenSize(width(),height());
 
     // Now we will create a basic Camera from the graphics library
     // This is a static camera so it only needs to be set once
     // First create Values for the camera position
-    ngl::Vec3 from( 50, 3, 1);
-    ngl::Vec3 to( 0, 0, 0 );
+    ngl::Vec3 from( 50, 10, 1);
+    ngl::Vec3 to( 0, 7, 0 );
     ngl::Vec3 up( 0, 1, 0 );
     // now load to our new camera
     m_cam.set( from, to, up );
@@ -369,26 +407,44 @@ void NGLScene::paintGL()
     glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
     m_transform.reset();
     m_transform.setPosition(0, -10, 0);
-    m_transform.setScale(200.0, 1.0, 200.0);
+    m_transform.setScale(225.0, 1.0, 225.0);
     loadMatricesToShader();
     glDrawArrays(GL_TRIANGLES, 0,36 );
 
-    //scene 1
-    if(m_scene1==true)
+    //drawing current scene
+    if(m_scene1==true||m_scene2==true||m_scene3==true)
     {
         glBindTexture(GL_TEXTURE_2D,m_textureNameObstacle);
         glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
         //drawing obstacles
-        for(int i=-1; i<2; i++)
+        for(int i=0; i<objectCollision.getNumberObstacles()/2; i++)
         {
-            for(int j=-1; j<2; j++)
-            {
-                m_transform.reset();
-                m_transform.setPosition(i*20, 0, j*20);
-                m_transform.setScale(20.0, 50.0, 20.0);
-                loadMatricesToShader();
-                glDrawArrays(GL_TRIANGLES, 0,36 );
-            }
+            m_transform.reset();
+
+            m_transform.setPosition(objectCollision.m_sceneObjects[i].position.m_x,
+            objectCollision.m_sceneObjects[i].position.m_y,
+            objectCollision.m_sceneObjects[i].position.m_z);
+            m_transform.setScale(objectCollision.m_sceneObjects[i].scale.m_x,
+            objectCollision.m_sceneObjects[i].scale.m_y,
+            objectCollision.m_sceneObjects[i].scale.m_z);
+            loadMatricesToShader();
+            glDrawArrays(GL_TRIANGLES, 0,36 );
+        }
+        glBindTexture(GL_TEXTURE_2D,m_textureNameHighRise);
+        glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
+        //drawing obstacles
+        for(int i=objectCollision.getNumberObstacles()/2; i<objectCollision.getNumberObstacles(); i++)
+        {
+            m_transform.reset();
+
+            m_transform.setPosition(objectCollision.m_sceneObjects[i].position.m_x,
+            objectCollision.m_sceneObjects[i].position.m_y,
+            objectCollision.m_sceneObjects[i].position.m_z);
+            m_transform.setScale(objectCollision.m_sceneObjects[i].scale.m_x,
+            objectCollision.m_sceneObjects[i].scale.m_y,
+            objectCollision.m_sceneObjects[i].scale.m_z);
+            loadMatricesToShader();
+            glDrawArrays(GL_TRIANGLES, 0,36 );
         }
     }
 
@@ -525,22 +581,25 @@ void NGLScene::weatherHeaviness(int _heaviness)
 void NGLScene::toggleScene1(bool _scene1)
 {
     m_scene1=_scene1;
-    std::cout<<"scene 1\n";
+    objectCollision.setScene(1);
+    objectCollision.Scene1();
     particleSystem.setScene(1);
 }
 
 void NGLScene::toggleScene2(bool _scene2)
 {
     m_scene2=_scene2;
-    std::cout<<"scene 2\n";
     particleSystem.setScene(2);
+    objectCollision.setScene(2);
+    objectCollision.Scene2();
 }
 
 void NGLScene::toggleScene3(bool _scene3)
 {
     m_scene3=_scene3;
-    std::cout<<"scene 3\n";
     particleSystem.setScene(3);
+    objectCollision.setScene(3);
+    objectCollision.Scene3();
 }
 
 void NGLScene::windSpeed(int _speed)

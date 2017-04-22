@@ -14,6 +14,7 @@ ParticleManager::ParticleManager()
     m_south=false;
     m_east=false;
     m_west=false;
+    m_scene=0;
     m_numberParticles=m_defaultParticleNumber;
     m_sliderIncrement=100;
     //setting up particle system of rain/snow + temp value of adding 100 for each slider increment
@@ -61,9 +62,12 @@ void ParticleManager::calculateNewPos()
     {
         for(int i=0; i<m_numberParticles; i++)
         {
-            ngl::Vec3 currentPos=system[i].getPosition();
-            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x, currentPos.m_y-=(0.1+(m_windStrength/300)), currentPos.m_z);
-            system[i].setPosition(newPosition);
+            if(system[i].getDead()!=true)
+            {
+                ngl::Vec3 currentPos=system[i].getPosition();
+                ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x, currentPos.m_y-=(0.1+(m_windStrength/300)), currentPos.m_z);
+                system[i].setPosition(newPosition);
+            }
         }
     }
     //slower fall rate as mass is less and drag resistance is more
@@ -72,11 +76,14 @@ void ParticleManager::calculateNewPos()
     {
         for(int i=0; i<m_numberParticles; i++)
         {
-            ngl::Vec3 currentPos=system[i].getPosition();
-            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x+=system[i].getdriftX(),
-                                            currentPos.m_y-=(0.05+(m_windStrength/300)),
-                                            currentPos.m_z+=system[i].getdrfitZ());
-            system[i].setPosition(newPosition);
+            if(system[i].getDead()!=true)
+            {
+                ngl::Vec3 currentPos=system[i].getPosition();
+                ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x+=system[i].getdriftX(),
+                                                currentPos.m_y-=(0.05+(m_windStrength/300)),
+                                                currentPos.m_z+=system[i].getdrfitZ());
+                system[i].setPosition(newPosition);
+            }
         }
     }
 }
@@ -179,6 +186,7 @@ void ParticleManager::checkCollision()
         //different sized particles for rain and snow
         if(m_snow==true)
         {
+            //floor collision
             ngl::Vec3 currentPos=system[i].getPosition();
             if(collision.floorCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
                                         ngl::Vec3(0.4,0.4,0.4))))
@@ -186,15 +194,46 @@ void ParticleManager::checkCollision()
                 system[i].setDead(true);
                 //collide();
             }
+            //scene collision
+            //for scene collision first do a check to see if particles are below a certain z number
+            //only then go onto check for each particle all of the cubes, that way it will reduce calculations when theyre too high
+            else if(m_scene!=0)
+            {
+                if(currentPos.m_y<20)
+                {
+                    if(collision.objectCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
+                                                ngl::Vec3(0.4,0.4,0.4)), m_scene))
+                    {
+                        system[i].setDead(true);
+                        //collide();
+                    }
+                }
+            }
         }
         else if(m_rain==true)
         {
+            //floor collision
             ngl::Vec3 currentPos=system[i].getPosition();
             if(collision.floorCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
                                         ngl::Vec3(0.2,1.0,0.2))))
             {
                 system[i].setDead(true);
                 //collide();
+            }
+            //scene collision
+            //for scene collision first do a check to see if particles are below a certain z number
+            //only then go onto check for each particle all of the cubes, that way it will reduce calculations when theyre too high
+            else if(m_scene!=0)
+            {
+                if(currentPos.m_y<20)
+                {
+                    if(collision.objectCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
+                                                ngl::Vec3(0.2,1.0,0.2)), m_scene))
+                    {
+                        system[i].setDead(true);
+                        //collide();
+                    }
+                }
             }
         }
     }
