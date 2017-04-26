@@ -1,6 +1,9 @@
 #include "ParticleManager.h"
 #include "NGLScene.h"
 #include "Scenes.h"
+#include <math.h>
+
+#define PI 3.14159265
 
 ParticleManager::ParticleManager()
 {
@@ -10,11 +13,9 @@ ParticleManager::ParticleManager()
     m_rain=false;
     m_snow=false;
     m_windSpeed=0.0;
-    m_north=false;
-    m_south=false;
-    m_east=false;
-    m_west=false;
+    m_windDirection=0.0;
     m_scene=0;
+    m_particleSize=5;
     m_numberParticles=m_defaultParticleNumber;
     m_sliderIncrement=100;
     //setting up particle system of rain/snow + temp value of adding 100 for each slider increment
@@ -33,6 +34,9 @@ ParticleManager::ParticleManager()
         float driftZ=((float(rand()) / float(RAND_MAX)) * (0.01f - -0.01f)) + -0.01f;
         system[i].setDriftX(driftX);
         system[i].setDriftZ(driftZ);
+        float randomScale=((float(rand()) / float(RAND_MAX)) * (0.1f - -0.1f)) + -0.1f;
+        ngl::Vec3 particleSize=ngl::Vec3((0.4+randomScale),(0.4+randomScale),(0.4+randomScale));
+        system[i].setSize(particleSize);
     }
 }
 
@@ -88,66 +92,47 @@ void ParticleManager::calculateNewPos()
     }
 }
 
-//may not be needed
-void ParticleManager::updateHeaviness()
+void ParticleManager::updateSize()
 {
-
+    if(m_rain==true)
+    {
+        for(int i=0; i<m_numberParticles; i++)
+        {
+            float randomScale=((float(rand()) / float(RAND_MAX)) * (0.1f - -0.1f)) + -0.1f;
+            ngl::Vec3 particleSize=ngl::Vec3(m_particleSize*0.1*(0.2+(randomScale)),
+                                             m_particleSize*0.1*(1.0+randomScale),
+                                             m_particleSize*0.1*(0.2+randomScale));
+            system[i].setSize(particleSize);
+        }
+    }
+    else if(m_snow==true)
+    {
+        for(int i=0; i<m_numberParticles; i++)
+        {
+            float randomScale=((float(rand()) / float(RAND_MAX)) * (0.1f - -0.1f)) + -0.1f;
+            ngl::Vec3 particleSize=ngl::Vec3(m_particleSize*0.1*(0.4+randomScale),
+                                             m_particleSize*0.1*(0.4+randomScale),
+                                             m_particleSize*0.1*(0.4+randomScale));
+            system[i].setSize(particleSize);
+        }
+    }
 }
 
 void ParticleManager::outsideInfluenece()
 {
-//East wind movement
-    if(m_east==true)
+    //dial wind direction rotation
+    for(int i=0; i<m_numberParticles; i++)
     {
-        for(int i=0; i<m_numberParticles; i++)
-        {
-            ngl::Vec3 currentPos=system[i].getPosition();
-            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z-=(0.0003*m_windSpeed));
-            system[i].setPosition(newPosition);
-
-            ngl::Vec3 currentRot=system[i].getRotation();
-            ngl::Vec3 newRotation=ngl::Vec3(10+(m_windSpeed/3), currentRot.m_y, 0.0);
-            system[i].setRotation(newRotation);
-        }
-    }
-    else if(m_west==true)
-    {
-        for(int i=0; i<m_numberParticles; i++)
-        {
-            ngl::Vec3 currentPos=system[i].getPosition();
-            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z+=(0.0003*m_windSpeed));
-            system[i].setPosition(newPosition);
-
-            ngl::Vec3 currentRot=system[i].getRotation();
-            ngl::Vec3 newRotation=ngl::Vec3(350-(m_windSpeed/3), currentRot.m_y, 0.0);
-            system[i].setRotation(newRotation);
-        }
-    }
-    else if(m_north==true)
-    {
-        for(int i=0; i<m_numberParticles; i++)
-        {
-            ngl::Vec3 currentPos=system[i].getPosition();
-            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x-=(0.0003*m_windSpeed), currentPos.m_y, currentPos.m_z);
-            system[i].setPosition(newPosition);
-
-            ngl::Vec3 currentRot=system[i].getRotation();
-            ngl::Vec3 newRotation=ngl::Vec3(0.0, currentRot.m_y, 350-(m_windSpeed/3));
-            system[i].setRotation(newRotation);
-        }
-    }
-    else if(m_south==true)
-    {
-        for(int i=0; i<m_numberParticles; i++)
-        {
-            ngl::Vec3 currentPos=system[i].getPosition();
-            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x+=(0.0003*m_windSpeed), currentPos.m_y, currentPos.m_z);
-            system[i].setPosition(newPosition);
-
-            ngl::Vec3 currentRot=system[i].getRotation();
-            ngl::Vec3 newRotation=ngl::Vec3(0.0, currentRot.m_y, 10+(m_windSpeed/3));
-            system[i].setRotation(newRotation);
-        }
+        ngl::Vec3 currentPos=system[i].getPosition();
+        ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x+=(sin((-90+m_windDirection)*PI/180))*(0.0003*m_windSpeed),
+                                        currentPos.m_y,
+                                        currentPos.m_z+=(sin((180+m_windDirection)*PI/180))*(0.0003*m_windSpeed));
+        system[i].setPosition(newPosition);
+        ngl::Vec3 currentRot=system[i].getRotation();
+        ngl::Vec3 newRotation=ngl::Vec3(360+(sin((m_windDirection)*PI/180))*(10+(m_windSpeed/3)),
+                                        currentRot.m_y,
+                                        360+(sin((-90+m_windDirection)*PI/180))*(10+(m_windSpeed/3)));
+        system[i].setRotation(newRotation);
     }
 }
 
@@ -155,6 +140,7 @@ void ParticleManager::outsideInfluenece()
 void ParticleManager::update()
 {
     calculateNewPos();
+    updateSize();
     deleteOldParticles();
     outsideInfluenece();
     addParticle();
@@ -183,56 +169,31 @@ void ParticleManager::checkCollision()
     Scenes collision;
     for(int i=0; i<m_numberParticles; i++)
     {
-        //different sized particles for rain and snow
-        if(m_snow==true)
+        //floor collision
+        ngl::Vec3 currentPos=system[i].getPosition();
+        ngl::Vec3 currentSize=system[i].getSize();
+        if(collision.floorCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
+                                    ngl::Vec3(currentSize.m_x,
+                                              currentSize.m_y,
+                                              currentSize.m_z))))
         {
-            //floor collision
-            ngl::Vec3 currentPos=system[i].getPosition();
-            if(collision.floorCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
-                                        ngl::Vec3(0.4,0.4,0.4))))
-            {
-                system[i].setDead(true);
-                //collide();
-            }
-            //scene collision
-            //for scene collision first do a check to see if particles are below a certain z number
-            //only then go onto check for each particle all of the cubes, that way it will reduce calculations when theyre too high
-            else if(m_scene!=0)
-            {
-                if(currentPos.m_y<20)
-                {
-                    if(collision.objectCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
-                                                ngl::Vec3(0.4,0.4,0.4)), m_scene))
-                    {
-                        system[i].setDead(true);
-                        //collide();
-                    }
-                }
-            }
+            system[i].setDead(true);
+            //collide();
         }
-        else if(m_rain==true)
+        //scene collision
+        //for scene collision first do a check to see if particles are below a certain z number
+        //only then go onto check for each particle all of the cubes, that way it will reduce calculations when theyre too high
+        else if(m_scene!=0)
         {
-            //floor collision
-            ngl::Vec3 currentPos=system[i].getPosition();
-            if(collision.floorCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
-                                        ngl::Vec3(0.2,1.0,0.2))))
+            if(currentPos.m_y<20)
             {
-                system[i].setDead(true);
-                //collide();
-            }
-            //scene collision
-            //for scene collision first do a check to see if particles are below a certain z number
-            //only then go onto check for each particle all of the cubes, that way it will reduce calculations when theyre too high
-            else if(m_scene!=0)
-            {
-                if(currentPos.m_y<20)
+                if(collision.objectCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
+                                            ngl::Vec3(currentSize.m_x,
+                                                      currentSize.m_y,
+                                                      currentSize.m_z)), m_scene))
                 {
-                    if(collision.objectCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
-                                                ngl::Vec3(0.2,1.0,0.2)), m_scene))
-                    {
-                        system[i].setDead(true);
-                        //collide();
-                    }
+                    system[i].setDead(true);
+                    //collide();
                 }
             }
         }

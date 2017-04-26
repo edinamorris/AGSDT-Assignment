@@ -26,6 +26,7 @@ public:
     void collide();
     //changing from rain to snow or vice versa, clear up old particles start new system
     void changeParticles();
+    void updateSize();
 
     //gets
     int getNumberOfParticles(){return m_numberParticles;}
@@ -37,10 +38,8 @@ public:
     void setRain(bool _rain){m_rain=_rain;}
     void setSnow(bool _snow){m_snow=_snow;}
     void setWindSpeed(int _speed){m_windSpeed=_speed;}
-    void setNorth(bool _north){m_north=_north;}
-    void setSouth(bool _south){m_south=_south;}
-    void setWest(bool _west){m_west=_west;}
-    void setEast(bool _east){m_east=_east;}
+    void setWind(int _direction){m_windDirection=_direction;}
+    void setParticleSize(int _size){m_particleSize=_size;}
 
 private:
     int m_numberParticles;
@@ -54,11 +53,8 @@ private:
     bool m_rain;
     bool m_snow;
     float m_windSpeed;
-    bool m_north;
-    bool m_south;
-    bool m_east;
-    bool m_west;
-
+    int m_windDirection;
+    int m_particleSize;
 };
 
 #endif //PARTICLEMANAGER_H

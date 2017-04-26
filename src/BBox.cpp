@@ -33,23 +33,9 @@ Bbox::Bbox(const ngl::Vec3 &_position, const ngl::Vec3 &_size)
 }
 
 /**
- * @brief Bbox::checkCollisionUp
- * @param _Bbox
- * @return false if there isnt an up collision
- */
-bool Bbox::checkCollisionUp(const Bbox& _Bbox)
-{
-  if(m_ymin-0.1 > _Bbox.m_ymax)
-  {
-    return false;
-  }
-    return true;
-}
-
-/**
  * @brief Bbox::checkCollisionDown
  * @param _Bbox
- * @return false if there isnt an down collision
+ * @return false if there isnt a down collison, also checks x and z sides
  */
 bool Bbox::checkCollisionDown(const Bbox& _Bbox)
 {

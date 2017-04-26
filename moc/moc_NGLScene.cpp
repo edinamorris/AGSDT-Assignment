@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_NGLScene_t {
-    QByteArrayData data[26];
-    char stringdata0[250];
+    QByteArrayData data[22];
+    char stringdata0[222];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -49,23 +49,18 @@ QT_MOC_LITERAL(14, 140, 12), // "toggleScene3"
 QT_MOC_LITERAL(15, 153, 7), // "_scene3"
 QT_MOC_LITERAL(16, 161, 9), // "windSpeed"
 QT_MOC_LITERAL(17, 171, 6), // "_speed"
-QT_MOC_LITERAL(18, 178, 11), // "toggleNorth"
-QT_MOC_LITERAL(19, 190, 6), // "_north"
-QT_MOC_LITERAL(20, 197, 11), // "toggleSouth"
-QT_MOC_LITERAL(21, 209, 6), // "_south"
-QT_MOC_LITERAL(22, 216, 10), // "toggleWest"
-QT_MOC_LITERAL(23, 227, 5), // "_west"
-QT_MOC_LITERAL(24, 233, 10), // "toggleEast"
-QT_MOC_LITERAL(25, 244, 5) // "_east"
+QT_MOC_LITERAL(18, 178, 13), // "windDirection"
+QT_MOC_LITERAL(19, 192, 10), // "_direction"
+QT_MOC_LITERAL(20, 203, 12), // "particleSize"
+QT_MOC_LITERAL(21, 216, 5) // "_size"
 
     },
     "NGLScene\0toggleRain\0\0_rain\0toggleSnow\0"
     "_snow\0weatherStrength\0_strength\0"
     "weatherHeaviness\0_heaviness\0toggleScene1\0"
     "_scene1\0toggleScene2\0_scene2\0toggleScene3\0"
-    "_scene3\0windSpeed\0_speed\0toggleNorth\0"
-    "_north\0toggleSouth\0_south\0toggleWest\0"
-    "_west\0toggleEast\0_east"
+    "_scene3\0windSpeed\0_speed\0windDirection\0"
+    "_direction\0particleSize\0_size"
 };
 #undef QT_MOC_LITERAL
 
@@ -75,7 +70,7 @@ static const uint qt_meta_data_NGLScene[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -83,18 +78,16 @@ static const uint qt_meta_data_NGLScene[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    1,   74,    2, 0x0a /* Public */,
-       4,    1,   77,    2, 0x0a /* Public */,
-       6,    1,   80,    2, 0x0a /* Public */,
-       8,    1,   83,    2, 0x0a /* Public */,
-      10,    1,   86,    2, 0x0a /* Public */,
-      12,    1,   89,    2, 0x0a /* Public */,
-      14,    1,   92,    2, 0x0a /* Public */,
-      16,    1,   95,    2, 0x0a /* Public */,
-      18,    1,   98,    2, 0x0a /* Public */,
-      20,    1,  101,    2, 0x0a /* Public */,
-      22,    1,  104,    2, 0x0a /* Public */,
-      24,    1,  107,    2, 0x0a /* Public */,
+       1,    1,   64,    2, 0x0a /* Public */,
+       4,    1,   67,    2, 0x0a /* Public */,
+       6,    1,   70,    2, 0x0a /* Public */,
+       8,    1,   73,    2, 0x0a /* Public */,
+      10,    1,   76,    2, 0x0a /* Public */,
+      12,    1,   79,    2, 0x0a /* Public */,
+      14,    1,   82,    2, 0x0a /* Public */,
+      16,    1,   85,    2, 0x0a /* Public */,
+      18,    1,   88,    2, 0x0a /* Public */,
+      20,    1,   91,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -105,10 +98,8 @@ static const uint qt_meta_data_NGLScene[] = {
     QMetaType::Void, QMetaType::Bool,   13,
     QMetaType::Void, QMetaType::Bool,   15,
     QMetaType::Void, QMetaType::Int,   17,
-    QMetaType::Void, QMetaType::Bool,   19,
-    QMetaType::Void, QMetaType::Bool,   21,
-    QMetaType::Void, QMetaType::Bool,   23,
-    QMetaType::Void, QMetaType::Bool,   25,
+    QMetaType::Void, QMetaType::Int,   19,
+    QMetaType::Void, QMetaType::Int,   21,
 
        0        // eod
 };
@@ -127,10 +118,8 @@ void NGLScene::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 5: _t->toggleScene2((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 6: _t->toggleScene3((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 7: _t->windSpeed((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->toggleNorth((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 9: _t->toggleSouth((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 10: _t->toggleWest((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 11: _t->toggleEast((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 8: _t->windDirection((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 9: _t->particleSize((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -161,13 +150,13 @@ int NGLScene::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 12;
+        _id -= 10;
     }
     return _id;
 }

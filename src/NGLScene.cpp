@@ -29,10 +29,8 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_weatherHeaviness=0;
     m_weatherStrength=0;
     m_windSpeed=0;
-    m_east=false;
-    m_north=false;
-    m_south=false;
-    m_west=false;
+    m_windDirection=0;
+    m_particleSize=0;
     m_fpsTimer =startTimer(0);
     m_fps=0;
     m_frames=0;
@@ -464,13 +462,16 @@ void NGLScene::paintGL()
             {
                 ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
                 ngl::Vec3 particleRotation=particleSystem.system[i].getRotation();
+                ngl::Vec3 particleSize=particleSystem.system[i].getSize();
                 m_transform.setPosition(particlePosition.m_x,
                                         particlePosition.m_y,
                                         particlePosition.m_z);
                 m_transform.setRotation(particleRotation.m_x,
                                         particleRotation.m_y,
                                         particleRotation.m_z);
-                m_transform.setScale((0.4+randomScale),(0.4+randomScale),(0.4+randomScale));
+                m_transform.setScale(particleSize.m_x,
+                                     particleSize.m_y,
+                                     particleSize.m_z);
                 loadMatricesToShader();
                 ++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
@@ -490,13 +491,16 @@ void NGLScene::paintGL()
             {
                 ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
                 ngl::Vec3 particleRotation=particleSystem.system[i].getRotation();
+                ngl::Vec3 particleSize=particleSystem.system[i].getSize();
                 m_transform.setPosition(particlePosition.m_x,
                                         particlePosition.m_y,
                                         particlePosition.m_z);
                 m_transform.setRotation(particleRotation.m_x,
                                         particleRotation.m_y,
                                         particleRotation.m_z);
-                m_transform.setScale((0.2+randomScale),(1.0+randomScale),(0.2+randomScale));
+                m_transform.setScale(particleSize.m_x,
+                                     particleSize.m_y,
+                                     particleSize.m_z);
                 loadMatricesToShader();
                 ++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
@@ -609,30 +613,25 @@ void NGLScene::windSpeed(int _speed)
     particleSystem.setWindSpeed(_speed);
 }
 
-void NGLScene::toggleNorth(bool _north)
+void NGLScene::windDirection(int _direction)
 {
-    m_north=_north;
-    std::cout<<"North \n";
-    particleSystem.setNorth(_north);
+    m_windDirection=_direction;
+    //correcting angle
+    if(m_windDirection<180)
+    {
+        m_windDirection+=180;
+    }
+    else
+    {
+        m_windDirection-=180;
+    }
+    std::cout<<"wind direction >"<<m_windDirection<<"\n";
+    particleSystem.setWind(m_windDirection);
 }
 
-void NGLScene::toggleSouth(bool _south)
+void NGLScene::particleSize(int _size)
 {
-    m_south=_south;
-    std::cout<<"South \n";
-    particleSystem.setSouth(_south);
-}
-
-void NGLScene::toggleEast(bool _east)
-{
-    m_east=_east;
-    std::cout<<"East \n";
-    particleSystem.setEast(_east);
-}
-
-void NGLScene::toggleWest(bool _west)
-{
-    m_west=_west;
-    std::cout<<"West \n";
-    particleSystem.setWest(_west);
+    m_particleSize=_size;
+    //std::cout<<"particle size >"<<m_particleSize<<"\n";
+    particleSystem.setParticleSize(m_particleSize);
 }

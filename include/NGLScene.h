@@ -44,10 +44,8 @@ public slots :
     void toggleScene2(bool _scene2);
     void toggleScene3(bool _scene3);
     void windSpeed(int _speed);
-    void toggleNorth(bool _north);
-    void toggleSouth(bool _south);
-    void toggleWest(bool _west);
-    void toggleEast(bool _east);
+    void windDirection(int _direction);
+    void particleSize(int _size);
 
 private :
     //testing signals and slots
@@ -59,10 +57,8 @@ private :
     bool m_scene2;
     bool m_scene3;
     int m_windSpeed;
-    bool m_north;
-    bool m_south;
-    bool m_west;
-    bool m_east;
+    int m_windDirection;
+    int m_particleSize;
 
     ParticleManager particleSystem;
     Scenes objectCollision;

@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(float _size, ngl::Vec3 _position, ngl::Vec3 _rotation, bool _particleDead)
+Particle::Particle(ngl::Vec3 _size, ngl::Vec3 _position, ngl::Vec3 _rotation, bool _particleDead)
 {
     m_size=_size;
     m_position=_position;
