@@ -119,7 +119,7 @@ void NGLScene::loadTextureRain()
 void NGLScene::loadTextureFloor()
 {
     QImage image;
-    bool loaded=image.load("textures/floor.bmp");
+    bool loaded=image.load("textures/concrete.jpg");
     if(loaded == true)
     {
         int width=image.width();
@@ -294,6 +294,7 @@ void NGLScene::initializeGL()
     glClearColor( 0.4f, 0.4f, 0.4f, 1.0f ); // Grey Background
     // enable depth testing for drawing
     glEnable( GL_DEPTH_TEST );
+
     // enable multisampling for smoother drawing
     #ifndef USINGIOS_
       glEnable( GL_MULTISAMPLE );
@@ -405,7 +406,7 @@ void NGLScene::paintGL()
     glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
     m_transform.reset();
     m_transform.setPosition(0, -10, 0);
-    m_transform.setScale(225.0, 1.0, 225.0);
+    m_transform.setScale(250.0, 1.0, 250.0);
     loadMatricesToShader();
     glDrawArrays(GL_TRIANGLES, 0,36 );
 
@@ -505,6 +506,23 @@ void NGLScene::paintGL()
                 ++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
             }
+        }
+        for(int i=0; i<int(particleSystem.rainSplashes.size()); i++)
+        {
+            ngl::Vec3 particlePosition=particleSystem.rainSplashes[i].getPosition();
+            ngl::Vec3 particleRotation=particleSystem.rainSplashes[i].getRotation();
+            ngl::Vec3 particleSize=particleSystem.rainSplashes[i].getSize();
+            m_transform.setPosition(particlePosition.m_x,
+                                    particlePosition.m_y,
+                                    particlePosition.m_z);
+            m_transform.setRotation(particleRotation.m_x,
+                                    particleRotation.m_y,
+                                    particleRotation.m_z);
+            m_transform.setScale(particleSize.m_x,
+                                 particleSize.m_y,
+                                 particleSize.m_z);
+            loadMatricesToShader();
+            glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
         }
     }
 

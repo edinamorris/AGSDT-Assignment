@@ -1,16 +1,14 @@
 #include "Particle.h"
 
-Particle::Particle(ngl::Vec3 _size, ngl::Vec3 _position, ngl::Vec3 _rotation, bool _particleDead)
-{
-    m_size=_size;
-    m_position=_position;
-    m_rotation=_rotation;
-    m_dead=false;
-}
-
 Particle::Particle()
 {
-    //default constructor
+    m_size=ngl::Vec3(0,0,0);
+    m_position=ngl::Vec3(0,0,0);
+    m_rotation=ngl::Vec3(0,0,0);
+    m_dead=false;
+    m_colliding=false;
+    m_life=0.0;
+    m_maxLife=0.0;
 }
 
 Particle::~Particle()

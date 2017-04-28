@@ -3,6 +3,7 @@
 
 #include "Particle.h"
 #include "Scenes.h"
+#include <vector>
 
 class ParticleManager
 {
@@ -12,6 +13,7 @@ public:
     //creation
     void addParticle();
     Particle *system;
+    std::vector<Particle> rainSplashes;
     Scenes obstacles;
     //updating
     void calculateNewPos();
@@ -20,10 +22,12 @@ public:
     //void draw();
     //called from ngl, is used to run all the updating functions for each particle to find final new position
     void update();
-    void deleteOldParticles();
+    void moveDeadParticles();
     void checkCollision();
-    //dependent on whether particle is rain or snow will do different things
-    void collide();
+    //creating and setting new splash particles
+    void splash(int _particleId);
+    //for snow this will melt, for rain this will update the secondary particle's positiosn
+    void colliding();
     //changing from rain to snow or vice versa, clear up old particles start new system
     void changeParticles();
     void updateSize();
