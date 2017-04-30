@@ -540,6 +540,8 @@ NGLScene::~NGLScene()
     glDeleteTextures(1,&m_textureNameRain);
     glDeleteTextures(1,&m_textureNameSnow);
     glDeleteTextures(1,&m_textureNameFloor);
+    glDeleteTextures(1,&m_textureNameObstacle);
+    glDeleteTextures(1,&m_textureNameHighRise);
 }
 
 void NGLScene::timerEvent(QTimerEvent *_event)
