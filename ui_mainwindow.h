@@ -98,7 +98,7 @@ public:
         sizePolicy1.setHeightForWidth(particleSize->sizePolicy().hasHeightForWidth());
         particleSize->setSizePolicy(sizePolicy1);
         particleSize->setMinimum(5);
-        particleSize->setMaximum(13);
+        particleSize->setMaximum(11);
         particleSize->setOrientation(Qt::Horizontal);
 
         gridLayout_2->addWidget(particleSize, 13, 0, 1, 1);

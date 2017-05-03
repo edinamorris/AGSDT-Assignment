@@ -123,19 +123,22 @@ void ParticleManager::updateSize()
 
 void ParticleManager::outsideInfluenece()
 {
-    //dial wind direction rotation
-    for(int i=0; i<m_numberParticles; i++)
+    if(m_windSpeed>0)
     {
-        ngl::Vec3 currentPos=system[i].getPosition();
-        ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x+=(sin((-90+m_windDirection)*PI/180))*(0.0003*m_windSpeed),
-                                        currentPos.m_y,
-                                        currentPos.m_z+=(sin((180+m_windDirection)*PI/180))*(0.0003*m_windSpeed));
-        system[i].setPosition(newPosition);
-        ngl::Vec3 currentRot=system[i].getRotation();
-        ngl::Vec3 newRotation=ngl::Vec3(360+(sin((m_windDirection)*PI/180))*(10+(m_windSpeed/3)),
-                                        currentRot.m_y,
-                                        360+(sin((-90+m_windDirection)*PI/180))*(10+(m_windSpeed/3)));
-        system[i].setRotation(newRotation);
+        //dial wind direction rotation
+        for(int i=0; i<m_numberParticles; i++)
+        {
+            ngl::Vec3 currentPos=system[i].getPosition();
+            ngl::Vec3 newPosition=ngl::Vec3(currentPos.m_x+=(sin((-90+m_windDirection)*PI/180))*(0.0003*m_windSpeed),
+                                            currentPos.m_y,
+                                            currentPos.m_z+=(sin((180+m_windDirection)*PI/180))*(0.0003*m_windSpeed));
+            system[i].setPosition(newPosition);
+            ngl::Vec3 currentRot=system[i].getRotation();
+            ngl::Vec3 newRotation=ngl::Vec3(360+(sin((m_windDirection)*PI/180))*(10+(m_windSpeed/3)),
+                                            currentRot.m_y,
+                                            360+(sin((-90+m_windDirection)*PI/180))*(10+(m_windSpeed/3)));
+            system[i].setRotation(newRotation);
+        }
     }
 }
 
@@ -317,10 +320,4 @@ void ParticleManager::colliding()
             rainSplashes.erase(rainSplashes.begin()+i);
         }
     }
-}
-
-//may need to delete whole system and restart each time user switches between rain and snow
-void ParticleManager::changeParticles()
-{
-
 }

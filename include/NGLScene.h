@@ -5,6 +5,7 @@
 #include <ngl/Transformation.h>
 #include <ngl/Vec3.h>
 #include <ngl/Text.h>
+#include <ngl/Light.h>
 #include <QTime>
 #include <QEvent>
 #include <QResizeEvent>
@@ -90,6 +91,9 @@ public:
     /// @brief our transform for objects
     ngl::Transformation m_transform;
 
+    //light position
+    ngl::Vec3 m_lightPos;
+
     /// @brief this method is called every time a mouse is moved
     /// @param _event the Qt Event structure
     void mouseMoveEvent (QMouseEvent * _event   ) override;
@@ -122,24 +126,18 @@ public:
     //----------------------------------------------------------------------------------------------------------------------
     /// @brief load the snow texture and store the id in m_textureName
     //----------------------------------------------------------------------------------------------------------------------
-    void loadTextureSnow();
+    void loadTextures();
     //----------------------------------------------------------------------------------------------------------------------
     /// @brief opengl texture id for the snow texture
     //----------------------------------------------------------------------------------------------------------------------
     GLuint m_textureNameSnow;
     //rain texture
-    void loadTextureRain();
     GLuint m_textureNameRain;
     //floor texture
-    void loadTextureFloor();
     GLuint m_textureNameFloor;
-
     //obstacle texture
-    void loadTextureObstacle();
     GLuint m_textureNameObstacle;
-
     //highrise texture
-    void loadTextureHighRise();
     GLuint m_textureNameHighRise;
 
     //----------------------------------------------------------------------------------------------------------------------

@@ -41,9 +41,10 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     srand (time(NULL));
 }
 
-//snow texture
-void NGLScene::loadTextureSnow()
+//loading all textures in scene
+void NGLScene::loadTextures()
 {
+    //snow
     QImage image;
     bool loaded=image.load("textures/snowflake.png");
     if(loaded == true)
@@ -76,13 +77,9 @@ void NGLScene::loadTextureSnow()
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
 
     }
-}
 
-//rain texture
-void NGLScene::loadTextureRain()
-{
-    QImage image;
-    bool loaded=image.load("textures/rain_1.png");
+    //rain
+    loaded=image.load("textures/rain_1.png");
     if(loaded == true)
     {
         int width=image.width();
@@ -113,13 +110,9 @@ void NGLScene::loadTextureRain()
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
 
     }
-}
 
-//surface texture
-void NGLScene::loadTextureFloor()
-{
-    QImage image;
-    bool loaded=image.load("textures/concrete.jpg");
+    //floor
+    loaded=image.load("textures/concrete.jpg");
     if(loaded == true)
     {
         int width=image.width();
@@ -150,13 +143,9 @@ void NGLScene::loadTextureFloor()
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
 
     }
-}
 
-//obstacles texture
-void NGLScene::loadTextureObstacle()
-{
-    QImage image;
-    bool loaded=image.load("textures/building.png");
+    //building texture
+    loaded=image.load("textures/building.png");
     if(loaded == true)
     {
         int width=image.width();
@@ -187,13 +176,9 @@ void NGLScene::loadTextureObstacle()
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
 
     }
-}
 
-//highrise texture
-void NGLScene::loadTextureHighRise()
-{
-    QImage image;
-    bool loaded=image.load("textures/highrise.bmp");
+    //highrise texture
+    loaded=image.load("textures/highrise.bmp");
     if(loaded == true)
     {
         int width=image.width();
@@ -329,12 +314,14 @@ void NGLScene::initializeGL()
     // and make it active ready to load values
     ( *shader )[ shaderProgram ]->use();
 
+    m_lightPos = ngl::Vec3(1,1,1);
+
+    shader->setRegisteredUniform("lightPos", m_lightPos);
+    shader->setRegisteredUniform("lightDiffuse", 1.0f,1.0f,1.0f,1.0f);
+    shader->setShaderParam1f("Normalize",1);
+
     createCube(0.2);
-    loadTextureSnow();
-    loadTextureRain();
-    loadTextureFloor();
-    loadTextureObstacle();
-    loadTextureHighRise();
+    loadTextures();
     m_text.reset( new ngl::Text(QFont("Arial",14)));
     m_text->setScreenSize(width(),height());
 
@@ -409,6 +396,15 @@ void NGLScene::paintGL()
     m_transform.setScale(250.0, 1.0, 250.0);
     loadMatricesToShader();
     glDrawArrays(GL_TRIANGLES, 0,36 );
+
+    ngl::Mat3 normalMatrix;
+    ngl::Mat3 MV;
+    MV=m_transform.getMatrix()*m_mouseGlobalTX*m_cam.getViewMatrix()*m_cam.getVPMatrix();
+    // calculate normal matrix by getting the top 3x3 of the MV
+    normalMatrix=MV;
+    // then calculate the inverse
+    normalMatrix.inverse();
+    shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
 
     //drawing current scene
     if(m_scene1==true||m_scene2==true||m_scene3==true)

@@ -28,8 +28,6 @@ public:
     void splash(int _particleId);
     //for snow this will melt, for rain this will update the secondary particle's positiosn
     void colliding();
-    //changing from rain to snow or vice versa, clear up old particles start new system
-    void changeParticles();
     void updateSize();
 
     //gets
