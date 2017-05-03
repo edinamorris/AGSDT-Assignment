@@ -10,8 +10,7 @@
 #include <QColorDialog>
 #include <QFont>
 #include <time.h>
-
-
+#include <boost/format.hpp>
 
 //----------------------------------------------------------------------------------------------------------------------
 NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
@@ -38,6 +37,10 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_polyMode=GL_FILL;
     m_modelPos.m_x=-40;
     m_modelPos.m_y=-5;
+    m_numberOfLights=2;
+    m_lightPos=new ngl::Vec3[m_numberOfLights];
+    m_lightPos[0]=ngl::Vec3(1.55, 2.0, -4.3);
+    m_lightPos[1]=ngl::Vec3(1.15, 1.0, 4.9);
     srand (time(NULL));
 }
 
@@ -224,7 +227,7 @@ void NGLScene::createCube( GLfloat _scale )
                          -1,1,-1, 1,1,-1, 1,1,1, -1,1,1, 1,1,1, -1,1,-1, // top
                          -1,-1,-1, 1,-1,-1, 1,-1,1, -1,-1,1, 1,-1,1, -1,-1,-1, // bottom
                          -1,1,-1,-1,1,1,-1,-1,-1, -1,-1,-1,-1,-1,1,-1,1,1, // left
-                         1,1,-1,1,1,1,1,-1,-1, 1,-1,-1,1,-1,1,1,1,1, // left
+                         1,1,-1,1,1,1,1,-1,-1, 1,-1,-1,1,-1,1,1,1,1, // right
 
                          };
     GLfloat texture[] = {
@@ -250,8 +253,8 @@ void NGLScene::createCube( GLfloat _scale )
     glBindVertexArray(m_vaoID);
     // now we create two VBO's one for each of the objects these are only used here
     // as they will be associated with the vertex array object
-    GLuint vboID[2];
-    glGenBuffers(2, &vboID[0]);
+    GLuint vboID[3];
+    glGenBuffers(3, &vboID[0]);
     // now we will bind an array buffer to the first one and load the data for the verts
     glBindBuffer(GL_ARRAY_BUFFER, vboID[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
@@ -264,6 +267,12 @@ void NGLScene::createCube( GLfloat _scale )
     glBufferData(GL_ARRAY_BUFFER, sizeof(texture)*sizeof(GLfloat), texture, GL_STATIC_DRAW);
     glVertexAttribPointer(1,2,GL_FLOAT,false,0,0);
     glEnableVertexAttribArray(1);
+
+    // normals
+    glBindBuffer(GL_ARRAY_BUFFER, vboID[2]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices)*sizeof(GLfloat), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(2,3,GL_FLOAT,false,0,0);
+    glEnableVertexAttribArray(2);
 }
 
 // This virtual function is called once before the first call to paintGL() or resizeGL(),
@@ -314,9 +323,6 @@ void NGLScene::initializeGL()
     // and make it active ready to load values
     ( *shader )[ shaderProgram ]->use();
 
-    m_lightPos = ngl::Vec3(1,1,1);
-
-    shader->setRegisteredUniform("lightPos", m_lightPos);
     shader->setRegisteredUniform("lightDiffuse", 1.0f,1.0f,1.0f,1.0f);
     shader->setShaderParam1f("Normalize",1);
 
@@ -356,6 +362,15 @@ void NGLScene::loadMatricesToShader()
     ngl::Mat4 MVP=m_transform.getMatrix() *m_mouseGlobalTX*m_cam.getVPMatrix();
 
     shader->setRegisteredUniform("MVP",MVP);
+
+    ngl::Mat3 normalMatrix;
+    ngl::Mat3 MV;
+    MV=m_transform.getMatrix() *m_mouseGlobalTX*m_cam.getViewMatrix();
+    // calculate normal matrix by getting the top 3x3 of the MV
+    normalMatrix=MV;
+    // then calculate the inverse
+    normalMatrix.inverse();
+    shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -385,9 +400,17 @@ void NGLScene::paintGL()
 
 	loadMatricesToShader();
 
+    for(int i=0; i<m_numberOfLights; i++)
+    {
+        std::string name=boost::str(boost::format("light[%d]") % i );
+
+        shader->setShaderParam3f(name, m_lightPos[i].m_x, m_lightPos[i].m_y, m_lightPos[i].m_z);
+    }
+
     // now we bind back our vertex array object and draw
     glBindVertexArray(m_vaoID);		// select first VAO
 
+    shader->setRegisteredUniform("particle", false);
     //floor
     glBindTexture(GL_TEXTURE_2D,m_textureNameFloor);
     glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
@@ -396,15 +419,6 @@ void NGLScene::paintGL()
     m_transform.setScale(250.0, 1.0, 250.0);
     loadMatricesToShader();
     glDrawArrays(GL_TRIANGLES, 0,36 );
-
-    ngl::Mat3 normalMatrix;
-    ngl::Mat3 MV;
-    MV=m_transform.getMatrix()*m_mouseGlobalTX*m_cam.getViewMatrix()*m_cam.getVPMatrix();
-    // calculate normal matrix by getting the top 3x3 of the MV
-    normalMatrix=MV;
-    // then calculate the inverse
-    normalMatrix.inverse();
-    shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
 
     //drawing current scene
     if(m_scene1==true||m_scene2==true||m_scene3==true)
@@ -448,6 +462,7 @@ void NGLScene::paintGL()
 
     if(m_snow==true)
     {
+        shader->setRegisteredUniform("particle", true);
         // need to bind the active texture before drawing
         glBindTexture(GL_TEXTURE_2D,m_textureNameSnow);
         glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
@@ -477,6 +492,7 @@ void NGLScene::paintGL()
     }
     else if(m_rain==true)
     {
+        shader->setRegisteredUniform("particle", true);
         // need to bind the active texture before drawing
         glBindTexture(GL_TEXTURE_2D,m_textureNameRain);
         glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);

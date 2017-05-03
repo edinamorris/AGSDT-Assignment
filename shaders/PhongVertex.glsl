@@ -7,7 +7,7 @@ uniform mat4 MVP;
 layout (location=0) in vec3 inVert;
 // second attribute the UV values from our VAO
 layout (location=1)in vec2 inUV;
-
+// normal values
 layout(location=2) in vec3 inNormal;
 
 // we use this to pass the UV values to the frag shader

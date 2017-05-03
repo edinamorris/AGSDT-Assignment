@@ -85,14 +85,14 @@ public:
     ngl::Vec3 m_modelPos;
     /// @brief our camera
     ngl::Camera m_cam;
+    //light positions
+    ngl::Vec3 *m_lightPos;
+    int m_numberOfLights;
     /// @brief used to store the global mouse transforms
     //----------------------------------------------------------------------------------------------------------------------
     ngl::Mat4 m_mouseGlobalTX;
     /// @brief our transform for objects
     ngl::Transformation m_transform;
-
-    //light position
-    ngl::Vec3 m_lightPos;
 
     /// @brief this method is called every time a mouse is moved
     /// @param _event the Qt Event structure

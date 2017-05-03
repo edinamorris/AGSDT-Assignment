@@ -1,6 +1,8 @@
 #ifndef WINDOWPARAMS_H_
 #define WINDOWPARAMS_H_
 
+#include "ngl/Vec3.h"
+
 struct WinParams
 {
     //----------------------------------------------------------------------------------------------------------------------
