@@ -1,0 +1,6 @@
+<map id="ParticleManager" name="ParticleManager">
+<area shape="rect" id="node2" href="$class_scenes.html" title="Scenes" alt="" coords="5,187,72,213"/>
+<area shape="rect" id="node3" href="$structobject.html" title="object structure holding position, scale and bounding box " alt="" coords="10,96,67,123"/>
+<area shape="rect" id="node4" href="$class_bbox.html" title="The Bbox class. " alt="" coords="13,5,64,32"/>
+<area shape="rect" id="node5" href="$class_particle.html" title="Particle" alt="" coords="97,187,164,213"/>
+</map>

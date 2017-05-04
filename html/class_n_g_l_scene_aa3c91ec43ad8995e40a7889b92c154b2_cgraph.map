@@ -1,0 +1,3 @@
+<map id="NGLScene::weatherHeaviness" name="NGLScene::weatherHeaviness">
+<area shape="rect" id="node2" href="$class_particle_manager.html#a2e6ea189f151be025e83491d454830c0" title="mutator method which sets class heaviness to incoming heaviness from UI " alt="" coords="257,5,461,32"/>
+</map>

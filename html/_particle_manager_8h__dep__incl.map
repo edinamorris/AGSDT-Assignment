@@ -1,0 +1,11 @@
+<map id="include/ParticleManager.h" name="include/ParticleManager.h">
+<area shape="rect" id="node2" href="$_n_g_l_scene_8h.html" title="a basic Qt GL window class for ngl demos " alt="" coords="642,80,784,107"/>
+<area shape="rect" id="node8" href="$_n_g_l_scene_8cpp.html" title="a basic Qt GL window class for ngl demos " alt="" coords="803,155,936,181"/>
+<area shape="rect" id="node10" href="$_particle_manager_8cpp.html" title="contains methods for calculating new particle position after effects, deleting old particles and crea..." alt="" coords="960,155,1123,181"/>
+<area shape="rect" id="node3" href="$_main_window_8h.html" title="User interface window. " alt="" coords="183,155,336,181"/>
+<area shape="rect" id="node7" href="$moc___n_g_l_scene_8cpp.html" title="moc/moc_NGLScene.cpp" alt="" coords="361,155,532,181"/>
+<area shape="rect" id="node9" href="$_n_g_l_scene_mouse_controls_8cpp.html" title="src/NGLSceneMouseControls.cpp" alt="" coords="557,155,779,181"/>
+<area shape="rect" id="node4" href="$moc___main_window_8cpp.html" title="moc/moc_MainWindow.cpp" alt="" coords="5,229,187,256"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="src/main.cpp" alt="" coords="211,229,308,256"/>
+<area shape="rect" id="node6" href="$_main_window_8cpp.html" title="User interface window, implementation of signals and slots, commuicating with NGLScene. " alt="" coords="333,229,477,256"/>
+</map>

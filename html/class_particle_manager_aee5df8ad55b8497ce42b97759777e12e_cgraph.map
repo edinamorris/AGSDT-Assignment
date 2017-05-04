@@ -1,0 +1,4 @@
+<map id="ParticleManager::moveDeadParticles" name="ParticleManager::moveDeadParticles">
+<area shape="rect" id="node2" href="$class_particle.html#a45a64c766a8f81659886365a17e5fb67" title="mutator method to set class particle death state to incoming death state " alt="" coords="248,5,371,32"/>
+<area shape="rect" id="node3" href="$class_particle.html#ae6f514c44226cf7a9759ff38bac53d68" title="mutator method to set class position to incoming position " alt="" coords="240,56,379,83"/>
+</map>

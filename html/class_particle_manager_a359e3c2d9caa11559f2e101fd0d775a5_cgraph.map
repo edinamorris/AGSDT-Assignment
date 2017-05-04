@@ -1,0 +1,9 @@
+<map id="ParticleManager::splash" name="ParticleManager::splash">
+<area shape="rect" id="node2" href="$class_particle.html#ae6f514c44226cf7a9759ff38bac53d68" title="mutator method to set class position to incoming position " alt="" coords="233,5,372,32"/>
+<area shape="rect" id="node3" href="$class_particle.html#abe98c5a407ee3baec25921410b76e5e8" title="mutator method to set class rotation to incoming rotation " alt="" coords="232,56,373,83"/>
+<area shape="rect" id="node4" href="$class_particle.html#a974b432170dbecf0351315f30efbaf32" title="mutator method to set class size to incoming size " alt="" coords="243,107,362,133"/>
+<area shape="rect" id="node5" href="$class_particle.html#a127cc1252d7548ef269b9419e03918ef" title="mutator method to set class current particle life to incoming particle life " alt="" coords="246,157,359,184"/>
+<area shape="rect" id="node6" href="$class_particle.html#a929099a72aace8638e4a79270f103ea4" title="mutator method to set class max life to incoming max life " alt="" coords="233,208,372,235"/>
+<area shape="rect" id="node7" href="$class_particle.html#af0d29be8435c2812de1e633e62cf26bd" title="mutator method to set class random position modifier to incoming random position modifier ..." alt="" coords="217,259,388,285"/>
+<area shape="rect" id="node8" href="$class_particle.html#a672e63534eb33319b4ebc31605cd4842" title="mutator method to set class random rotation modifier to incoming random rotation modifier ..." alt="" coords="217,309,389,336"/>
+</map>

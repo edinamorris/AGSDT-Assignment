@@ -1,0 +1,7 @@
+<map id="include/NGLScene.h" name="include/NGLScene.h">
+<area shape="rect" id="node13" href="$_window_params_8h.html" title="WindowParams.h" alt="" coords="600,229,725,256"/>
+<area shape="rect" id="node14" href="$_particle_manager_8h.html" title="simple class to manage particles, manages creation, deleting and updating " alt="" coords="1205,80,1331,107"/>
+<area shape="rect" id="node16" href="$_scenes_8h.html" title="simple class to hold scene data and check for collisions with bounding box class " alt="" coords="1369,155,1447,181"/>
+<area shape="rect" id="node15" href="$_particle_8h.html" title="simple class holding each particle&#39;s attributes " alt="" coords="1181,229,1259,256"/>
+<area shape="rect" id="node17" href="$_b_box_8h.html" title="basic bounding box class with collision check method " alt="" coords="1329,229,1393,256"/>
+</map>

@@ -1,0 +1,3 @@
+<map id="NGLScene::toggleSnow" name="NGLScene::toggleSnow">
+<area shape="rect" id="node2" href="$class_particle_manager.html#a31a7db4c893356a87b0879d78aec6353" title="mutator method which sets class snow flag to incoming snow flag from UI " alt="" coords="217,5,391,32"/>
+</map>

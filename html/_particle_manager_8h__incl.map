@@ -1,0 +1,5 @@
+<map id="include/ParticleManager.h" name="include/ParticleManager.h">
+<area shape="rect" id="node2" href="$_particle_8h.html" title="simple class holding each particle&#39;s attributes " alt="" coords="8,155,85,181"/>
+<area shape="rect" id="node4" href="$_scenes_8h.html" title="simple class to hold scene data and check for collisions with bounding box class " alt="" coords="99,80,176,107"/>
+<area shape="rect" id="node5" href="$_b_box_8h.html" title="basic bounding box class with collision check method " alt="" coords="110,155,175,181"/>
+</map>

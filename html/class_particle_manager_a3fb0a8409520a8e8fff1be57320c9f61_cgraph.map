@@ -1,0 +1,6 @@
+<map id="ParticleManager::outsideInfluence" name="ParticleManager::outsideInfluence">
+<area shape="rect" id="node2" href="$class_particle.html#a19a9efc63b4ef507eb17fe370942174d" title="accessor method to get position of particle " alt="" coords="223,5,361,32"/>
+<area shape="rect" id="node3" href="$class_particle.html#ae6f514c44226cf7a9759ff38bac53d68" title="mutator method to set class position to incoming position " alt="" coords="223,56,361,83"/>
+<area shape="rect" id="node4" href="$class_particle.html#a5c9e5260df25237927f5779304db4140" title="accessor method to get rotation of particle " alt="" coords="221,107,363,133"/>
+<area shape="rect" id="node5" href="$class_particle.html#abe98c5a407ee3baec25921410b76e5e8" title="mutator method to set class rotation to incoming rotation " alt="" coords="221,157,363,184"/>
+</map>

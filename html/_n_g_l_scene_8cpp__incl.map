@@ -1,0 +1,8 @@
+<map id="src/NGLScene.cpp" name="src/NGLScene.cpp">
+<area shape="rect" id="node2" href="$_n_g_l_scene_8h.html" title="a basic Qt GL window class for ngl demos " alt="" coords="843,80,940,107"/>
+<area shape="rect" id="node15" href="$_particle_manager_8h.html" title="simple class to manage particles, manages creation, deleting and updating " alt="" coords="94,155,220,181"/>
+<area shape="rect" id="node14" href="$_window_params_8h.html" title="WindowParams.h" alt="" coords="1287,304,1412,331"/>
+<area shape="rect" id="node17" href="$_scenes_8h.html" title="simple class to hold scene data and check for collisions with bounding box class " alt="" coords="43,229,120,256"/>
+<area shape="rect" id="node16" href="$_particle_8h.html" title="simple class holding each particle&#39;s attributes " alt="" coords="741,304,819,331"/>
+<area shape="rect" id="node18" href="$_b_box_8h.html" title="basic bounding box class with collision check method " alt="" coords="49,304,113,331"/>
+</map>

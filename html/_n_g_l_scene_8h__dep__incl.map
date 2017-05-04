@@ -1,0 +1,10 @@
+<map id="include/NGLScene.h" name="include/NGLScene.h">
+<area shape="rect" id="node2" href="$_main_window_8h.html" title="User interface window. " alt="" coords="183,80,336,107"/>
+<area shape="rect" id="node6" href="$moc___n_g_l_scene_8cpp.html" title="moc/moc_NGLScene.cpp" alt="" coords="361,80,532,107"/>
+<area shape="rect" id="node7" href="$_n_g_l_scene_8cpp.html" title="a basic Qt GL window class for ngl demos " alt="" coords="557,80,691,107"/>
+<area shape="rect" id="node8" href="$_n_g_l_scene_mouse_controls_8cpp.html" title="src/NGLSceneMouseControls.cpp" alt="" coords="715,80,936,107"/>
+<area shape="rect" id="node9" href="$_particle_manager_8cpp.html" title="contains methods for calculating new particle position after effects, deleting old particles and crea..." alt="" coords="960,80,1123,107"/>
+<area shape="rect" id="node3" href="$moc___main_window_8cpp.html" title="moc/moc_MainWindow.cpp" alt="" coords="5,155,187,181"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="src/main.cpp" alt="" coords="211,155,308,181"/>
+<area shape="rect" id="node5" href="$_main_window_8cpp.html" title="User interface window, implementation of signals and slots, commuicating with NGLScene. " alt="" coords="333,155,477,181"/>
+</map>

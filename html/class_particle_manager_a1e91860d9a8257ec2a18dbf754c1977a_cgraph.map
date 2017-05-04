@@ -1,0 +1,5 @@
+<map id="ParticleManager::colliding" name="ParticleManager::colliding">
+<area shape="rect" id="node2" href="$class_particle.html#a59bbb8b7047dfa0c22fcdc37999fb278" title="accessor method to get life counter of particle " alt="" coords="239,5,353,32"/>
+<area shape="rect" id="node3" href="$class_particle.html#a127cc1252d7548ef269b9419e03918ef" title="mutator method to set class current particle life to incoming particle life " alt="" coords="239,56,353,83"/>
+<area shape="rect" id="node4" href="$class_particle.html#ad6abbb7b11e932aa9970d680faf092a9" title="mutator method to set class particle collision state to incoming collision state " alt="" coords="225,107,367,133"/>
+</map>

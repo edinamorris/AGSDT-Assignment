@@ -1,0 +1,8 @@
+<map id="ParticleManager::ParticleManager" name="ParticleManager::ParticleManager">
+<area shape="rect" id="node2" href="$class_particle.html#ae6f514c44226cf7a9759ff38bac53d68" title="mutator method to set class position to incoming position " alt="" coords="236,5,375,32"/>
+<area shape="rect" id="node3" href="$class_particle.html#ac4baaf81bb874219b0fd01fae395cfcb" title="mutator method to set class drifting modifier to incoming drifiting modifier for X direction ..." alt="" coords="242,56,369,83"/>
+<area shape="rect" id="node4" href="$class_particle.html#a6be40d2c93a9e230bb5e96236f24d82d" title="mutator method to set class drifting modifier to incoming drifiting modifier for Z direction ..." alt="" coords="243,107,368,133"/>
+<area shape="rect" id="node5" href="$class_particle.html#a7def2569ee091e5128daf71301819d33" title="mutator method to set class particle size to incoming particle size " alt="" coords="222,157,389,184"/>
+<area shape="rect" id="node6" href="$class_particle.html#a974b432170dbecf0351315f30efbaf32" title="mutator method to set class size to incoming size " alt="" coords="246,208,365,235"/>
+<area shape="rect" id="node7" href="$class_particle.html#a929099a72aace8638e4a79270f103ea4" title="mutator method to set class max life to incoming max life " alt="" coords="236,259,375,285"/>
+</map>

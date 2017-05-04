@@ -1,0 +1,16 @@
+<map id="ParticleManager::checkCollision" name="ParticleManager::checkCollision">
+<area shape="rect" id="node2" href="$class_particle.html#a19a9efc63b4ef507eb17fe370942174d" title="accessor method to get position of particle " alt="" coords="276,5,415,32"/>
+<area shape="rect" id="node3" href="$class_particle.html#a6a2e102ff9314c586534dc6b95a45f2f" title="accessor method to get size of particle " alt="" coords="286,56,405,83"/>
+<area shape="rect" id="node4" href="$class_scenes.html#af02174f9f787beea072a6e532c7af0ca" title="checking for floor collide for each passed in particle " alt="" coords="276,107,415,133"/>
+<area shape="rect" id="node6" href="$class_particle.html#a45a64c766a8f81659886365a17e5fb67" title="mutator method to set class particle death state to incoming death state " alt="" coords="284,157,407,184"/>
+<area shape="rect" id="node7" href="$class_particle_manager.html#a359e3c2d9caa11559f2e101fd0d775a5" title="creating and setting new splash particles " alt="" coords="264,208,427,235"/>
+<area shape="rect" id="node15" href="$class_particle.html#ad6abbb7b11e932aa9970d680faf092a9" title="mutator method to set class particle collision state to incoming collision state " alt="" coords="274,259,417,285"/>
+<area shape="rect" id="node5" href="$class_bbox.html#a5258345e0837eded6ee7a63ae531700a" title="simple check collision between current bounding box and passed in bounding box, returns true if colli..." alt="" coords="475,31,653,57"/>
+<area shape="rect" id="node8" href="$class_particle.html#ae6f514c44226cf7a9759ff38bac53d68" title="mutator method to set class position to incoming position " alt="" coords="495,81,633,108"/>
+<area shape="rect" id="node9" href="$class_particle.html#abe98c5a407ee3baec25921410b76e5e8" title="mutator method to set class rotation to incoming rotation " alt="" coords="493,132,635,159"/>
+<area shape="rect" id="node10" href="$class_particle.html#a974b432170dbecf0351315f30efbaf32" title="mutator method to set class size to incoming size " alt="" coords="505,183,623,209"/>
+<area shape="rect" id="node11" href="$class_particle.html#a127cc1252d7548ef269b9419e03918ef" title="mutator method to set class current particle life to incoming particle life " alt="" coords="507,233,621,260"/>
+<area shape="rect" id="node12" href="$class_particle.html#a929099a72aace8638e4a79270f103ea4" title="mutator method to set class max life to incoming max life " alt="" coords="495,284,633,311"/>
+<area shape="rect" id="node13" href="$class_particle.html#af0d29be8435c2812de1e633e62cf26bd" title="mutator method to set class random position modifier to incoming random position modifier ..." alt="" coords="479,335,649,361"/>
+<area shape="rect" id="node14" href="$class_particle.html#a672e63534eb33319b4ebc31605cd4842" title="mutator method to set class random rotation modifier to incoming random rotation modifier ..." alt="" coords="478,385,650,412"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="NGLScene::paintGL" name="NGLScene::paintGL">
+<area shape="rect" id="node2" href="$class_n_g_l_scene.html#a9149c8d164b007df5bf114c8a896e635" title="this method loads all matrices to shader " alt="" coords="199,5,382,46"/>
+<area shape="rect" id="node3" href="$class_scenes.html#ae90be2fdf6cd0842e15eab8f392d34ee" title="accessor to retrieve the number of obstacles " alt="" coords="192,71,389,97"/>
+<area shape="rect" id="node4" href="$class_particle_manager.html#aea1e7cce6255ecbe6e79d72d527fa8a7" title="accessor method which returns the current number of particles " alt="" coords="197,122,385,163"/>
+<area shape="rect" id="node5" href="$class_particle.html#a19a9efc63b4ef507eb17fe370942174d" title="accessor method to get position of particle " alt="" coords="221,188,360,215"/>
+<area shape="rect" id="node6" href="$class_particle.html#a5c9e5260df25237927f5779304db4140" title="accessor method to get rotation of particle " alt="" coords="220,239,361,265"/>
+<area shape="rect" id="node7" href="$class_n_g_l_scene.html#a1178e2971069ea9a7b4cc02ae60dc243" title="makes the average particle size larger or smaller by use of slider " alt="" coords="209,289,372,316"/>
+<area shape="rect" id="node9" href="$class_particle.html#a6a2e102ff9314c586534dc6b95a45f2f" title="accessor method to get size of particle " alt="" coords="231,340,350,367"/>
+<area shape="rect" id="node8" href="$class_particle_manager.html#a7b5e85e7b52f12450a68a7263cb9adff" title="mutator method which sets class particle size to incoming particle size from UI " alt="" coords="438,289,650,316"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="src/ParticleManager.cpp" name="src/ParticleManager.cpp">
+<area shape="rect" id="node2" href="$_particle_manager_8h.html" title="simple class to manage particles, manages creation, deleting and updating " alt="" coords="1257,155,1383,181"/>
+<area shape="rect" id="node10" href="$_n_g_l_scene_8h.html" title="a basic Qt GL window class for ngl demos " alt="" coords="750,80,847,107"/>
+<area shape="rect" id="node5" href="$_scenes_8h.html" title="simple class to hold scene data and check for collisions with bounding box class " alt="" coords="1380,229,1457,256"/>
+<area shape="rect" id="node3" href="$_particle_8h.html" title="simple class holding each particle&#39;s attributes " alt="" coords="1079,304,1156,331"/>
+<area shape="rect" id="node6" href="$_b_box_8h.html" title="basic bounding box class with collision check method " alt="" coords="1279,304,1344,331"/>
+<area shape="rect" id="node20" href="$_window_params_8h.html" title="WindowParams.h" alt="" coords="624,304,749,331"/>
+</map>

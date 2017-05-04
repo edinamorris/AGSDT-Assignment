@@ -1,0 +1,5 @@
+<map id="Scenes::objectCollide" name="Scenes::objectCollide">
+<area shape="rect" id="node2" href="$class_scenes.html#a00304d90488579b46ebe36e2608e0231" title="setting up positions for each building in scene 1 " alt="" coords="203,5,322,32"/>
+<area shape="rect" id="node3" href="$class_scenes.html#a835f676f4675bb5ae5f3964581d179f3" title="setting up positions for each building in scene 2 " alt="" coords="203,56,322,83"/>
+<area shape="rect" id="node4" href="$class_scenes.html#a68aa2bddcd9b3bdb0f6aebdb1e39b572" title="setting up positions for each building in scene 3 " alt="" coords="203,107,322,133"/>
+</map>

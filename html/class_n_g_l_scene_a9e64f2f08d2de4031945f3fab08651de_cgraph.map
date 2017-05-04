@@ -1,0 +1,3 @@
+<map id="NGLScene::windDirection" name="NGLScene::windDirection">
+<area shape="rect" id="node2" href="$class_particle_manager.html#a5e50e3fca155c9c3327c81aa32d24aeb" title="mutator method which sets class wind direction to incoming wind direction from UI ..." alt="" coords="227,5,399,32"/>
+</map>

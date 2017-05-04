@@ -1,0 +1,3 @@
+<map id="NGLScene::weatherStrength" name="NGLScene::weatherStrength">
+<area shape="rect" id="node2" href="$class_particle_manager.html#a5085adedba7612a60182ec34d1204087" title="mutator method which sets class wind strength to incoming wind strength from UI " alt="" coords="243,5,415,46"/>
+</map>

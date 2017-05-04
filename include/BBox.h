@@ -10,6 +10,9 @@
 #include<iostream>
 #include <ngl/Vec3.h>
 
+///
+/// \brief The Bbox class
+///
 class Bbox
 {
 public:

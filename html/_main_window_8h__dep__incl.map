@@ -1,0 +1,5 @@
+<map id="include/MainWindow.h" name="include/MainWindow.h">
+<area shape="rect" id="node2" href="$moc___main_window_8cpp.html" title="moc/moc_MainWindow.cpp" alt="" coords="5,80,187,107"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="src/main.cpp" alt="" coords="211,80,308,107"/>
+<area shape="rect" id="node4" href="$_main_window_8cpp.html" title="User interface window, implementation of signals and slots, commuicating with NGLScene. " alt="" coords="333,80,477,107"/>
+</map>

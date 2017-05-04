@@ -1,0 +1,35 @@
+<map id="NGLScene::timerEvent" name="NGLScene::timerEvent">
+<area shape="rect" id="node2" href="$class_particle_manager.html#add3b932a679f0b8e97f9eaae0cad434f" title="used to run all updating functions " alt="" coords="211,525,373,552"/>
+<area shape="rect" id="node3" href="$class_particle_manager.html#ad23cfcd0b7b36fb129ae23e8ee971524" title="calculating new position of particle with forces acting on it, eg gravity " alt="" coords="439,150,615,191"/>
+<area shape="rect" id="node9" href="$class_particle_manager.html#a573cdf9a2c27092b2609ea114d501072" title="updating the size of the particles " alt="" coords="432,372,621,399"/>
+<area shape="rect" id="node12" href="$class_particle_manager.html#aee5df8ad55b8497ce42b97759777e12e" title="moves dead particles back to reset position " alt="" coords="433,489,620,530"/>
+<area shape="rect" id="node14" href="$class_particle_manager.html#a3fb0a8409520a8e8fff1be57320c9f61" title="altering particles position based on wind direction and speed " alt="" coords="443,423,610,465"/>
+<area shape="rect" id="node17" href="$class_particle_manager.html#a31eea119c2abc3ecd5fbf8f0c23dc31e" title="changing number of particles in the scene, linked to user interface slider " alt="" coords="432,555,621,581"/>
+<area shape="rect" id="node18" href="$class_particle_manager.html#a74ed731edf4a520ccdb775a9f3d6ce22" title="checking particle collision with floor " alt="" coords="422,672,631,699"/>
+<area shape="rect" id="node28" href="$class_particle_manager.html#ae1db2d03d4bcc5384f51f6ff7adfe792" title="checking particle collision with buildings " alt="" coords="422,606,631,647"/>
+<area shape="rect" id="node33" href="$class_particle_manager.html#a1e91860d9a8257ec2a18dbf754c1977a" title="Proving the collision for the particles, for snow this will melt, for rain this will update the secon..." alt="" coords="441,791,612,817"/>
+<area shape="rect" id="node4" href="$class_particle.html#a5bc15fdf046a110bd3c69b38f944ab31" title="accessor method to get current collision state of particle " alt="" coords="693,208,835,235"/>
+<area shape="rect" id="node5" href="$class_particle.html#a19a9efc63b4ef507eb17fe370942174d" title="accessor method to get position of particle " alt="" coords="695,563,833,589"/>
+<area shape="rect" id="node6" href="$class_particle.html#ae6f514c44226cf7a9759ff38bac53d68" title="mutator method to set class position to incoming position " alt="" coords="916,284,1055,311"/>
+<area shape="rect" id="node7" href="$class_particle.html#a732297d204bfca1916c72a08ca9c2752" title="accessor method to get drift modifier in X direction for particle, used in snow " alt="" coords="703,56,825,83"/>
+<area shape="rect" id="node8" href="$class_particle.html#ac2ebbc6effd02385c0f19eb688871028" title="accessor method to get drift modifier in Z direction for particle, used in snow " alt="" coords="703,5,825,32"/>
+<area shape="rect" id="node10" href="$class_particle.html#a221c7cfc8ddec9507eacb6894a328929" title="accessor method to get random size modifier of particle " alt="" coords="681,157,847,184"/>
+<area shape="rect" id="node11" href="$class_particle.html#a974b432170dbecf0351315f30efbaf32" title="mutator method to set class size to incoming size " alt="" coords="926,524,1045,551"/>
+<area shape="rect" id="node13" href="$class_particle.html#a45a64c766a8f81659886365a17e5fb67" title="mutator method to set class particle death state to incoming death state " alt="" coords="703,613,825,640"/>
+<area shape="rect" id="node15" href="$class_particle.html#a5c9e5260df25237927f5779304db4140" title="accessor method to get rotation of particle " alt="" coords="693,309,835,336"/>
+<area shape="rect" id="node16" href="$class_particle.html#abe98c5a407ee3baec25921410b76e5e8" title="mutator method to set class rotation to incoming rotation " alt="" coords="915,600,1056,627"/>
+<area shape="rect" id="node19" href="$class_particle.html#a6a2e102ff9314c586534dc6b95a45f2f" title="accessor method to get size of particle " alt="" coords="705,664,823,691"/>
+<area shape="rect" id="node20" href="$class_scenes.html#af02174f9f787beea072a6e532c7af0ca" title="checking for floor collide for each passed in particle " alt="" coords="695,867,833,893"/>
+<area shape="rect" id="node22" href="$class_particle_manager.html#a359e3c2d9caa11559f2e101fd0d775a5" title="creating and setting new splash particles " alt="" coords="683,715,845,741"/>
+<area shape="rect" id="node27" href="$class_particle.html#ad6abbb7b11e932aa9970d680faf092a9" title="mutator method to set class particle collision state to incoming collision state " alt="" coords="693,765,835,792"/>
+<area shape="rect" id="node21" href="$class_bbox.html#a5258345e0837eded6ee7a63ae531700a" title="simple check collision between current bounding box and passed in bounding box, returns true if colli..." alt="" coords="896,867,1075,893"/>
+<area shape="rect" id="node23" href="$class_particle.html#a127cc1252d7548ef269b9419e03918ef" title="mutator method to set class current particle life to incoming particle life " alt="" coords="929,816,1042,843"/>
+<area shape="rect" id="node24" href="$class_particle.html#a929099a72aace8638e4a79270f103ea4" title="mutator method to set class max life to incoming max life " alt="" coords="916,715,1055,741"/>
+<area shape="rect" id="node25" href="$class_particle.html#af0d29be8435c2812de1e633e62cf26bd" title="mutator method to set class random position modifier to incoming random position modifier ..." alt="" coords="900,765,1071,792"/>
+<area shape="rect" id="node26" href="$class_particle.html#a672e63534eb33319b4ebc31605cd4842" title="mutator method to set class random rotation modifier to incoming random rotation modifier ..." alt="" coords="899,664,1071,691"/>
+<area shape="rect" id="node29" href="$class_scenes.html#a51e61861eb58710be89cbf3cfbb20e21" title="checking for building collide for each passed in particle " alt="" coords="689,411,839,437"/>
+<area shape="rect" id="node30" href="$class_scenes.html#a00304d90488579b46ebe36e2608e0231" title="setting up positions for each building in scene 1 " alt="" coords="926,461,1045,488"/>
+<area shape="rect" id="node31" href="$class_scenes.html#a835f676f4675bb5ae5f3964581d179f3" title="setting up positions for each building in scene 2 " alt="" coords="926,360,1045,387"/>
+<area shape="rect" id="node32" href="$class_scenes.html#a68aa2bddcd9b3bdb0f6aebdb1e39b572" title="setting up positions for each building in scene 3 " alt="" coords="926,411,1045,437"/>
+<area shape="rect" id="node34" href="$class_particle.html#a59bbb8b7047dfa0c22fcdc37999fb278" title="accessor method to get life counter of particle " alt="" coords="707,917,821,944"/>
+</map>

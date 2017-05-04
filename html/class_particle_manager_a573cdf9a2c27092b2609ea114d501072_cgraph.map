@@ -1,0 +1,4 @@
+<map id="ParticleManager::updateSize" name="ParticleManager::updateSize">
+<area shape="rect" id="node2" href="$class_particle.html#a221c7cfc8ddec9507eacb6894a328929" title="accessor method to get random size modifier of particle " alt="" coords="243,5,410,32"/>
+<area shape="rect" id="node3" href="$class_particle.html#a974b432170dbecf0351315f30efbaf32" title="mutator method to set class size to incoming size " alt="" coords="267,56,386,83"/>
+</map>
