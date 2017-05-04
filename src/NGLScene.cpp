@@ -40,7 +40,7 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_numberOfLights=2;
     m_lightPos=new ngl::Vec3[m_numberOfLights];
     m_lightPos[0]=ngl::Vec3(1.55, 2.0, -4.3);
-    m_lightPos[1]=ngl::Vec3(1.15, 1.0, 4.9);
+    m_lightPos[1]=ngl::Vec3(1.15, 0.01, 4.9);
     srand (time(NULL));
 }
 
@@ -288,6 +288,9 @@ void NGLScene::initializeGL()
     glClearColor( 0.4f, 0.4f, 0.4f, 1.0f ); // Grey Background
     // enable depth testing for drawing
     glEnable( GL_DEPTH_TEST );
+
+    glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // enable multisampling for smoother drawing
     #ifndef USINGIOS_

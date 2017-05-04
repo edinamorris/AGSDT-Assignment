@@ -4,6 +4,7 @@
 #include "Particle.h"
 #include "Scenes.h"
 #include <vector>
+#include <thread>
 
 class ParticleManager
 {
@@ -15,10 +16,12 @@ public:
     Particle *system;
     std::vector<Particle> rainSplashes;
     Scenes obstacles;
+    //c++11 threads
+    std::thread *t;
     //updating
-    void calculateNewPos();
+    void calculateNewPos(int _tid);
     void updateHeaviness();
-    void outsideInfluenece();
+    void outsideInfluence();
     //void draw();
     //called from ngl, is used to run all the updating functions for each particle to find final new position
     void update();
@@ -57,6 +60,7 @@ private:
     float m_windSpeed;
     int m_windDirection;
     int m_particleSize;
+    int m_numberThreads;
 };
 
 #endif //PARTICLEMANAGER_H

@@ -40,5 +40,4 @@ void main ()
 
     // set the fragment colour to the current texture with light influence
     outColour += (texture(tex,vertUV)) * lightDiffuse * (totalLight);
-    //outColour.a=0.4;
 }

@@ -2,6 +2,7 @@
 #include "NGLScene.h"
 #include "Scenes.h"
 #include <math.h>
+#include <thread>
 
 #define PI 3.14159265
 
@@ -20,7 +21,9 @@ ParticleManager::ParticleManager()
     m_sliderIncrement=100;
     //setting up particle system of rain/snow + temp value of adding 100 for each slider increment
     system=new Particle[m_numberParticles+(100*m_sliderIncrement)];
-
+    //setting up threads
+    m_numberThreads=10;
+    t=new std::thread[m_numberThreads];
     //initial positions
     for(int i=0; i<m_numberParticles; i++)
     {
@@ -55,7 +58,7 @@ void ParticleManager::addParticle()
 }
 
 //gravity
-void ParticleManager::calculateNewPos()
+void ParticleManager::calculateNewPos(int _tid)
 {
     if(m_windStrength<0.0)
     {
@@ -67,7 +70,7 @@ void ParticleManager::calculateNewPos()
     }
     if(m_rain==true)
     {
-        for(int i=0; i<m_numberParticles; i++)
+        for(int i=_tid*(m_numberParticles/m_numberThreads); i<(_tid+1)*(m_numberParticles/m_numberThreads); i++)
         {
             if(system[i].getDead()!=true && system[i].getColliding()!=true)
             {
@@ -81,7 +84,7 @@ void ParticleManager::calculateNewPos()
     //snow drifts slightly, so adding random effect for x and z
     else if(m_snow==true)
     {
-        for(int i=0; i<m_numberParticles; i++)
+        for(int i=_tid*(m_numberParticles/m_numberThreads); i<(_tid+1)*(m_numberParticles/m_numberThreads); i++)
         {
             if(system[i].getDead()!=true && system[i].getColliding()!=true)
             {
@@ -121,7 +124,7 @@ void ParticleManager::updateSize()
     }
 }
 
-void ParticleManager::outsideInfluenece()
+void ParticleManager::outsideInfluence()
 {
     if(m_windSpeed>0)
     {
@@ -145,13 +148,22 @@ void ParticleManager::outsideInfluenece()
 //calls all functions which calculate new particle position and rotation
 void ParticleManager::update()
 {
-    calculateNewPos();
+    for(int i=0; i<m_numberThreads; i++)
+    {
+        t[i]=std::thread(&ParticleManager::calculateNewPos, this, i);
+    }
+    //calculateNewPos();
     updateSize();
     moveDeadParticles();
-    outsideInfluenece();
+    outsideInfluence();
     addParticle();
     checkCollision();
     colliding();
+    for(int i=0; i<m_numberThreads; i++)
+    {
+        //t[i].detach();
+        t[i].join();
+    }
 }
 
 //deals with moving particles back to the top again
