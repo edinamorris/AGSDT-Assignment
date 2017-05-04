@@ -1,3 +1,9 @@
+/// @file MainWindow.cpp
+/// @brief User interface window, implementation of signals and slots, commuicating with NGLScene
+/// @author Edina Morris
+/// @version 1.0
+/// @date 04/05/17
+
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 

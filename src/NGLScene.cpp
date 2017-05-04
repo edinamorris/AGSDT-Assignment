@@ -1,3 +1,14 @@
+/// @file NGLScene.cpp
+/// @brief a basic Qt GL window class for ngl demos
+/// @author Jonathan Macey, edited by Edina Morris
+/// @version 1.0
+/// @date 10/10/10
+/// Revision History :
+/// Initial Version 10/10/10 (Binary day ;-0 )
+/// @class GLWindow
+/// @brief our main glwindow widget for NGL applications all drawing elements are
+/// put in this file
+
 #include "NGLScene.h"
 #include "ParticleManager.h"
 #include <iostream>
@@ -46,28 +57,39 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
 //loading all textures in scene
 void NGLScene::loadTextures()
 {
-    //snow
+    //SNOW TEXTURE
     QImage image;
-    bool loaded=image.load("textures/snowflake.png");
-    if(loaded == true)
+    bool loaded;
+    try
     {
-        int width=image.width();
-        int height=image.height();
-
-        unsigned char *data = new unsigned char[ width*height*3];
-        unsigned int index=0;
-        QRgb colour;
-        for( int y=0; y<height; ++y)
+        loaded=image.load("textures/snowflake.png");
+        if(loaded == false)
         {
-            for( int x=0; x<width; ++x)
-            {
-                colour=image.pixel(x,y);
-
-                data[index++]=qRed(colour);
-                data[index++]=qGreen(colour);
-                data[index++]=qBlue(colour);
-            }
+            throw(std::string("snowflake.png"));
         }
+    }
+    catch (std::string _texture)
+    {
+        std::cout<<"An exception occurred "<<_texture<<" was not loaded \n";
+    }
+    int width=image.width();
+    int height=image.height();
+
+    unsigned char *data;
+    data = new unsigned char[ width*height*3];
+    unsigned int index=0;
+    QRgb colour;
+    for( int y=0; y<height; ++y)
+    {
+        for( int x=0; x<width; ++x)
+        {
+            colour=image.pixel(x,y);
+
+            data[index++]=qRed(colour);
+            data[index++]=qGreen(colour);
+            data[index++]=qBlue(colour);
+        }
+    }
 
     glGenTextures(1,&m_textureNameSnow);
     glBindTexture(GL_TEXTURE_2D,m_textureNameSnow);
@@ -78,30 +100,38 @@ void NGLScene::loadTextures()
 
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
 
+
+    //RAIN TEXTURE
+    try
+    {
+        loaded=image.load("textures/rain_1.png");
+        if(loaded == false)
+        {
+            throw(std::string("rain_1.png"));
+        }
+    }
+    catch (std::string _texture)
+    {
+        std::cout<<"An exception occurred "<<_texture<<" was not loaded \n";
     }
 
-    //rain
-    loaded=image.load("textures/rain_1.png");
-    if(loaded == true)
+    width=image.width();
+    height=image.height();
+
+    data = new unsigned char[ width*height*3];
+
+    index=0;
+    for( int y=0; y<height; ++y)
     {
-        int width=image.width();
-        int height=image.height();
-
-        unsigned char *data = new unsigned char[ width*height*3];
-        unsigned int index=0;
-        QRgb colour;
-        for( int y=0; y<height; ++y)
+        for( int x=0; x<width; ++x)
         {
-            for( int x=0; x<width; ++x)
-            {
-                colour=image.pixel(x,y);
+            colour=image.pixel(x,y);
 
-                data[index++]=qRed(colour);
-                data[index++]=qGreen(colour);
-                data[index++]=qBlue(colour);
-            }
+            data[index++]=qRed(colour);
+            data[index++]=qGreen(colour);
+            data[index++]=qBlue(colour);
         }
-
+    }
     glGenTextures(1,&m_textureNameRain);
     glBindTexture(GL_TEXTURE_2D,m_textureNameRain);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -111,29 +141,36 @@ void NGLScene::loadTextures()
 
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
 
-    }
-
-    //floor
-    loaded=image.load("textures/concrete.jpg");
-    if(loaded == true)
+    //FLOOR TEXTURE
+    try
     {
-        int width=image.width();
-        int height=image.height();
-
-        unsigned char *data = new unsigned char[ width*height*3];
-        unsigned int index=0;
-        QRgb colour;
-        for( int y=0; y<height; ++y)
+        loaded=image.load("textures/concrete.jpg");
+        if(loaded == false)
         {
-            for( int x=0; x<width; ++x)
-            {
-                colour=image.pixel(x,y);
-
-                data[index++]=qRed(colour);
-                data[index++]=qGreen(colour);
-                data[index++]=qBlue(colour);
-            }
+            throw(std::string("concrete.jpg"));
         }
+    }
+    catch (std::string _texture)
+    {
+        std::cout<<"An exception occurred "<<_texture<<" was not loaded \n";
+    }
+    width=image.width();
+    height=image.height();
+
+    data = new unsigned char[ width*height*3];
+
+    index=0;
+    for( int y=0; y<height; ++y)
+    {
+        for( int x=0; x<width; ++x)
+        {
+            colour=image.pixel(x,y);
+
+            data[index++]=qRed(colour);
+            data[index++]=qGreen(colour);
+            data[index++]=qBlue(colour);
+        }
+    }
 
     glGenTextures(1,&m_textureNameFloor);
     glBindTexture(GL_TEXTURE_2D,m_textureNameFloor);
@@ -144,29 +181,36 @@ void NGLScene::loadTextures()
 
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
 
-    }
-
-    //building texture
-    loaded=image.load("textures/building.png");
-    if(loaded == true)
+    //BUILDING TEXTURE
+    try
     {
-        int width=image.width();
-        int height=image.height();
-
-        unsigned char *data = new unsigned char[ width*height*3];
-        unsigned int index=0;
-        QRgb colour;
-        for( int y=0; y<height; ++y)
+        loaded=image.load("textures/building.png");
+        if(loaded == false)
         {
-            for( int x=0; x<width; ++x)
-            {
-                colour=image.pixel(x,y);
-
-                data[index++]=qRed(colour);
-                data[index++]=qGreen(colour);
-                data[index++]=qBlue(colour);
-            }
+            throw(std::string("building.png"));
         }
+    }
+    catch (std::string _texture)
+    {
+        std::cout<<"An exception occurred "<<_texture<<" was not loaded \n";
+    }
+    width=image.width();
+    height=image.height();
+
+    data = new unsigned char[ width*height*3];
+
+    index=0;
+    for( int y=0; y<height; ++y)
+    {
+        for( int x=0; x<width; ++x)
+        {
+            colour=image.pixel(x,y);
+
+            data[index++]=qRed(colour);
+            data[index++]=qGreen(colour);
+            data[index++]=qBlue(colour);
+        }
+    }
 
     glGenTextures(1,&m_textureNameObstacle);
     glBindTexture(GL_TEXTURE_2D,m_textureNameObstacle);
@@ -177,29 +221,36 @@ void NGLScene::loadTextures()
 
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
 
-    }
-
-    //highrise texture
-    loaded=image.load("textures/highrise.bmp");
-    if(loaded == true)
+    //HIGHRISE TEXTURE
+    try
     {
-        int width=image.width();
-        int height=image.height();
-
-        unsigned char *data = new unsigned char[ width*height*3];
-        unsigned int index=0;
-        QRgb colour;
-        for( int y=0; y<height; ++y)
+        loaded=image.load("textures/highrise.bmp");
+        if(loaded == false)
         {
-            for( int x=0; x<width; ++x)
-            {
-                colour=image.pixel(x,y);
-
-                data[index++]=qRed(colour);
-                data[index++]=qGreen(colour);
-                data[index++]=qBlue(colour);
-            }
+            throw(std::string("highrise.bmp"));
         }
+    }
+    catch (std::string _texture)
+    {
+        std::cout<<"An exception occurred "<<_texture<<" was not loaded \n";
+    }
+    width=image.width();
+    height=image.height();
+
+    data = new unsigned char[ width*height*3];
+    index=0;
+
+    for( int y=0; y<height; ++y)
+    {
+        for( int x=0; x<width; ++x)
+        {
+            colour=image.pixel(x,y);
+
+            data[index++]=qRed(colour);
+            data[index++]=qGreen(colour);
+            data[index++]=qBlue(colour);
+        }
+    }
 
     glGenTextures(1,&m_textureNameHighRise);
     glBindTexture(GL_TEXTURE_2D,m_textureNameHighRise);
@@ -209,8 +260,6 @@ void NGLScene::loadTextures()
     glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
 
     glGenerateMipmap(GL_TEXTURE_2D); //  Allocate the mipmaps
-
-    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -380,10 +429,6 @@ void NGLScene::loadMatricesToShader()
 // this is our main drawing routine
 void NGLScene::paintGL()
 {
-    //time
-    //clock_t t;
-    //t = clock();
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glViewport(0,0,m_win.width,m_win.height);
     //ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
@@ -489,7 +534,6 @@ void NGLScene::paintGL()
                                      particleSize.m_y,
                                      particleSize.m_z);
                 loadMatricesToShader();
-                //++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
             }
         }
@@ -518,7 +562,6 @@ void NGLScene::paintGL()
                                      particleSize.m_y,
                                      particleSize.m_z);
                 loadMatricesToShader();
-                //++instances;
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
             }
         }
@@ -547,9 +590,6 @@ void NGLScene::paintGL()
     m_text->setColour(0,0,0);
     QString text=QString("Particles %1  %2 fps").arg(instances).arg(m_fps);
     m_text->renderText(10,20,text);
-
-    //t = clock() - t;
-    //printf ("It took me %d clicks (%f seconds).\n",t,((float)t)/CLOCKS_PER_SEC);
 }
 
 NGLScene::~NGLScene()
@@ -651,7 +691,7 @@ void NGLScene::windSpeed(int _speed)
 void NGLScene::windDirection(int _direction)
 {
     m_windDirection=_direction;
-    //correcting angle
+    //correcting angle as on qtdial 0 = south position, we want north = 0 and south = 180
     if(m_windDirection<180)
     {
         m_windDirection+=180;

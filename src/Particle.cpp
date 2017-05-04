@@ -1,3 +1,9 @@
+/// @file Particle.cpp
+/// @brief simple class holding each particle's attributes and setting to defaults
+/// @author Edina Morris
+/// @version 1.0
+/// @date 04/05/17
+
 #include "Particle.h"
 
 Particle::Particle()
