@@ -27,6 +27,7 @@ public:
     void update();
     void moveDeadParticles();
     void checkCollision();
+    void checkCollisionBuildings();
     //creating and setting new splash particles
     void splash(int _particleId);
     //for snow this will melt, for rain this will update the secondary particle's positiosn

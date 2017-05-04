@@ -41,11 +41,6 @@ NGLScene::NGLScene( QWidget *_parent ) : QOpenGLWidget( _parent )
     m_lightPos=new ngl::Vec3[m_numberOfLights];
     m_lightPos[0]=ngl::Vec3(1.55, 2.0, -4.3);
     m_lightPos[1]=ngl::Vec3(1.15, 0.01, 4.9);
-    //threads
-    //setting up threads
-    m_numberThreads=10;
-    t=new std::thread[m_numberThreads];
-    srand (time(NULL));
 }
 
 //loading all textures in scene
@@ -380,94 +375,15 @@ void NGLScene::loadMatricesToShader()
     shader->setShaderParamFromMat3("normalMatrix",normalMatrix);
 }
 
-/*void NGLScene::drawParticles(int _tid, int _weather)
-{
-    ngl::ShaderLib *shader=ngl::ShaderLib::instance();
-    (*shader)["Phong"]->use();
-    float numberParticles=particleSystem.getNumberOfParticles();
-    float splashParticles=particleSystem.rainSplashes.size();
-    if(_weather==0)
-    {
-        shader->setRegisteredUniform("particle", true);
-        // need to bind the active texture before drawing
-        glBindTexture(GL_TEXTURE_2D,m_textureNameSnow);
-        glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
-        //drawing particles
-        for(int i=_tid*(numberParticles/m_numberThreads); i<(_tid+1)*(numberParticles/m_numberThreads); i++)
-        {
-            m_transform.reset();
-            {
-                ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
-                ngl::Vec3 particleRotation=particleSystem.system[i].getRotation();
-                ngl::Vec3 particleSize=particleSystem.system[i].getSize();
-                m_transform.setPosition(particlePosition.m_x,
-                                        particlePosition.m_y,
-                                        particlePosition.m_z);
-                m_transform.setRotation(particleRotation.m_x,
-                                        particleRotation.m_y,
-                                        particleRotation.m_z);
-                m_transform.setScale(particleSize.m_x,
-                                     particleSize.m_y,
-                                     particleSize.m_z);
-                loadMatricesToShader();
-                //++instances;
-                glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
-            }
-        }
-    }
-    else if(_weather==1)
-    {
-        shader->setRegisteredUniform("particle", true);
-        // need to bind the active texture before drawing
-        glBindTexture(GL_TEXTURE_2D,m_textureNameRain);
-        glPolygonMode(GL_FRONT_AND_BACK,m_polyMode);
-        //drawing particles
-        for(int i=_tid*(numberParticles/m_numberThreads); i<(_tid+1)*(numberParticles/m_numberThreads); i++)
-        {
-            m_transform.reset();
-            {
-                ngl::Vec3 particlePosition=particleSystem.system[i].getPosition();
-                ngl::Vec3 particleRotation=particleSystem.system[i].getRotation();
-                ngl::Vec3 particleSize=particleSystem.system[i].getSize();
-                m_transform.setPosition(particlePosition.m_x,
-                                        particlePosition.m_y,
-                                        particlePosition.m_z);
-                m_transform.setRotation(particleRotation.m_x,
-                                        particleRotation.m_y,
-                                        particleRotation.m_z);
-                m_transform.setScale(particleSize.m_x,
-                                     particleSize.m_y,
-                                     particleSize.m_z);
-                loadMatricesToShader();
-                //++instances;
-                glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
-            }
-        }
-        for(int i=_tid*(splashParticles/m_numberThreads); i<(_tid+1)*(splashParticles/m_numberThreads); i++)
-        {
-            ngl::Vec3 particlePosition=particleSystem.rainSplashes[i].getPosition();
-            ngl::Vec3 particleRotation=particleSystem.rainSplashes[i].getRotation();
-            ngl::Vec3 particleSize=particleSystem.rainSplashes[i].getSize();
-            m_transform.setPosition(particlePosition.m_x,
-                                    particlePosition.m_y,
-                                    particlePosition.m_z);
-            m_transform.setRotation(particleRotation.m_x,
-                                    particleRotation.m_y,
-                                    particleRotation.m_z);
-            m_transform.setScale(particleSize.m_x,
-                                 particleSize.m_y,
-                                 particleSize.m_z);
-            loadMatricesToShader();
-            glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
-        }
-    }
-}*/
-
 //----------------------------------------------------------------------------------------------------------------------
 //This virtual function is called whenever the widget needs to be painted.
 // this is our main drawing routine
 void NGLScene::paintGL()
 {
+    //time
+    //clock_t t;
+    //t = clock();
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glViewport(0,0,m_win.width,m_win.height);
     //ngl::VAOPrimitives *prim=ngl::VAOPrimitives::instance();
@@ -577,15 +493,6 @@ void NGLScene::paintGL()
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
             }
         }
-        //threads - not working
-        /*for(int i=0; i<m_numberThreads; i++)
-        {
-            t[i]=std::thread(&NGLScene::drawParticles, this, i, 0);
-        }
-        for(int i=0; i<m_numberThreads; i++)
-        {
-            t[i].join();
-        }*/
     }
     else if(m_rain==true)
     {
@@ -615,7 +522,7 @@ void NGLScene::paintGL()
                 glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
             }
         }
-        for(int i=0; i<=int(particleSystem.rainSplashes.size()); i++)
+        for(int i=0; i<int(particleSystem.rainSplashes.size()); i++)
         {
             ngl::Vec3 particlePosition=particleSystem.rainSplashes[i].getPosition();
             ngl::Vec3 particleRotation=particleSystem.rainSplashes[i].getRotation();
@@ -632,15 +539,6 @@ void NGLScene::paintGL()
             loadMatricesToShader();
             glDrawArrays(GL_TRIANGLES, 0,36 );	// draw object
         }
-        //threads not working
-        /*for(int i=0; i<m_numberThreads; i++)
-        {
-            t[i]=std::thread(&NGLScene::drawParticles, this, i, 0);
-        }
-        for(int i=0; i<m_numberThreads; i++)
-        {
-            t[i].join();
-        }*/
     }
 
     // calculate and draw FPS
@@ -649,6 +547,9 @@ void NGLScene::paintGL()
     m_text->setColour(0,0,0);
     QString text=QString("Particles %1  %2 fps").arg(instances).arg(m_fps);
     m_text->renderText(10,20,text);
+
+    //t = clock() - t;
+    //printf ("It took me %d clicks (%f seconds).\n",t,((float)t)/CLOCKS_PER_SEC);
 }
 
 NGLScene::~NGLScene()
@@ -708,14 +609,12 @@ void NGLScene::toggleRain(bool _rain)
 void NGLScene::weatherStrength(int _strength)
 {
     m_weatherStrength=_strength;
-    std::cout<<"Weather strength is > "<<m_weatherStrength<<"\n";
     particleSystem.setWindStrength(_strength);
 }
 
 void NGLScene::weatherHeaviness(int _heaviness)
 {
     m_weatherHeaviness=_heaviness;
-    std::cout<<"Weather heaviness (number of particles) is > "<<m_weatherHeaviness<<"\n";
     particleSystem.setHeaviness(_heaviness);
 }
 
@@ -746,7 +645,6 @@ void NGLScene::toggleScene3(bool _scene3)
 void NGLScene::windSpeed(int _speed)
 {
     m_windSpeed=_speed;
-    std::cout<<"Wind speed is > "<<m_windSpeed<<"\n";
     particleSystem.setWindSpeed(_speed);
 }
 
@@ -762,13 +660,11 @@ void NGLScene::windDirection(int _direction)
     {
         m_windDirection-=180;
     }
-    std::cout<<"wind direction >"<<m_windDirection<<"\n";
     particleSystem.setWind(m_windDirection);
 }
 
 void NGLScene::particleSize(int _size)
 {
     m_particleSize=_size;
-    //std::cout<<"particle size >"<<m_particleSize<<"\n";
     particleSystem.setParticleSize(m_particleSize);
 }

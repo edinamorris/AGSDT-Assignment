@@ -2,6 +2,7 @@
 #include "NGLScene.h"
 #include "Scenes.h"
 #include <math.h>
+#include <time.h>
 #include <thread>
 
 #define PI 3.14159265
@@ -22,7 +23,7 @@ ParticleManager::ParticleManager()
     //setting up particle system of rain/snow + temp value of adding 100 for each slider increment
     system=new Particle[m_numberParticles+(100*m_sliderIncrement)];
     //setting up threads
-    m_numberThreads=10;
+    m_numberThreads=2;
     t=new std::thread[m_numberThreads];
     //initial positions
     for(int i=0; i<m_numberParticles; i++)
@@ -54,7 +55,6 @@ ParticleManager::~ParticleManager()
 void ParticleManager::addParticle()
 {
     m_numberParticles=m_defaultParticleNumber+(m_heaviness*m_sliderIncrement);
-    //std::cout<<"number of particles > "<<m_numberParticles<<"\n";
 }
 
 //gravity
@@ -156,18 +156,19 @@ void ParticleManager::update()
     {
         t[i]=std::thread(&ParticleManager::calculateNewPos, this, i);
     }
-    for(int i=0; i<m_numberThreads; i++)
-    {
-        //t[i].detach();
-        t[i].join();
-    }
-    //calculateNewPos();
+    //calculateNewPos(0);
     updateSize();
     moveDeadParticles();
     outsideInfluence();
     addParticle();
+    //floor
     checkCollision();
+    checkCollisionBuildings();
     colliding();
+    for(int i=0; i<m_numberThreads; i++)
+    {
+        t[i].join();
+    }
 }
 
 //deals with moving particles back to the top again
@@ -185,6 +186,39 @@ void ParticleManager::moveDeadParticles()
             float randomZ =rand() %81 + (-40);
             ngl::Vec3 particlePosition=ngl::Vec3(randomX, randomY, randomZ);
             system[i].setPosition(particlePosition);
+        }
+    }
+}
+
+void ParticleManager::checkCollisionBuildings()
+{
+    Scenes collision;
+    //for(int i=_tid*(m_numberParticles/m_numberThreads); i<(_tid+1)*(m_numberParticles/m_numberThreads); i++)
+    for(int i=0; i<m_numberParticles; i++)
+    {
+        ngl::Vec3 currentPos=system[i].getPosition();
+        ngl::Vec3 currentSize=system[i].getSize();
+        //scene collision
+        //for scene collision first do a check to see if particles are below a certain z number
+        //only then go onto check for each particle all of the cubes, that way it will reduce calculations when theyre too high
+        if(m_scene!=0)
+        {
+            if(currentPos.m_y<20 && system[i].getColliding()==false)
+            {
+                if(collision.objectCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
+                                            ngl::Vec3(currentSize.m_x,
+                                                      currentSize.m_y,
+                                                      currentSize.m_z)), m_scene))
+                {
+                    system[i].setDead(true);
+                    //if rain then run function splash to create the new particles
+                    if(m_rain==true)
+                    {
+                        splash(i);
+                    }
+                    system[i].setColliding(true);
+                }
+            }
         }
     }
 }
@@ -209,28 +243,6 @@ void ParticleManager::checkCollision()
                 splash(i);
             }
             system[i].setColliding(true);
-        }
-        //scene collision
-        //for scene collision first do a check to see if particles are below a certain z number
-        //only then go onto check for each particle all of the cubes, that way it will reduce calculations when theyre too high
-        else if(m_scene!=0)
-        {
-            if(currentPos.m_y<20 && system[i].getColliding()==false)
-            {
-                if(collision.objectCollide(Bbox(ngl::Vec3(currentPos.m_x, currentPos.m_y, currentPos.m_z),
-                                            ngl::Vec3(currentSize.m_x,
-                                                      currentSize.m_y,
-                                                      currentSize.m_z)), m_scene))
-                {
-                    system[i].setDead(true);
-                    //if rain then run function splash to create the new particles
-                    if(m_rain==true)
-                    {
-                        splash(i);
-                    }
-                    system[i].setColliding(true);
-                }
-            }
         }
         //catching any outliers
         else if(currentPos.m_y<=-20)
@@ -283,7 +295,6 @@ void ParticleManager::colliding()
             {
                 currentLife+=lifeIncrement;
                 system[i].setLife(currentLife);
-                //change transparency
             }
             else
             {
@@ -328,7 +339,6 @@ void ParticleManager::colliding()
             currentPosition.m_z+=rainSplashes[i].getRandPosition().m_z;
             rainSplashes[i].setRotation(currentRotation);
             rainSplashes[i].setPosition(currentPosition);
-            //make raindrop more transparent
         }
         //reached end of life so erase particle
         else

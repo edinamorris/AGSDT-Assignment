@@ -66,11 +66,6 @@ private :
     Scenes objectCollision;
 
 public:
-    //c++11 threads
-    std::thread *t;
-    int m_numberThreads;
-    //drawing particles
-    void drawParticles(int _tid, int _weather);
     //----------------------------------------------------------------------------------------------------------------------
     /// @brief the windows params such as mouse and rotations etc
     //----------------------------------------------------------------------------------------------------------------------

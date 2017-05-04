@@ -13,6 +13,6 @@ Particle::Particle()
 
 Particle::~Particle()
 {
-    //clearing up particle memory
+
 }
 
