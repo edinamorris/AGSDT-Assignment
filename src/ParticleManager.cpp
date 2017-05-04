@@ -60,17 +60,10 @@ void ParticleManager::addParticle()
 //gravity
 void ParticleManager::calculateNewPos(int _tid)
 {
-    if(m_windStrength<0.0)
-    {
-        m_windStrength=1.0;
-    }
-    else if(m_windStrength>100.0)
-    {
-        m_windStrength=1.0;
-    }
     if(m_rain==true)
     {
         for(int i=_tid*(m_numberParticles/m_numberThreads); i<(_tid+1)*(m_numberParticles/m_numberThreads); i++)
+        //for(int i=0; i<m_numberParticles; i++)
         {
             if(system[i].getDead()!=true && system[i].getColliding()!=true)
             {
@@ -85,6 +78,7 @@ void ParticleManager::calculateNewPos(int _tid)
     else if(m_snow==true)
     {
         for(int i=_tid*(m_numberParticles/m_numberThreads); i<(_tid+1)*(m_numberParticles/m_numberThreads); i++)
+        //for(int i=0; i<m_numberParticles; i++)
         {
             if(system[i].getDead()!=true && system[i].getColliding()!=true)
             {
@@ -148,9 +142,24 @@ void ParticleManager::outsideInfluence()
 //calls all functions which calculate new particle position and rotation
 void ParticleManager::update()
 {
+    //correcting wind strength if out of bounds
+    if(m_windStrength<0.0)
+    {
+        m_windStrength=1.0;
+    }
+    else if(m_windStrength>100.0)
+    {
+        m_windStrength=1.0;
+    }
+
     for(int i=0; i<m_numberThreads; i++)
     {
         t[i]=std::thread(&ParticleManager::calculateNewPos, this, i);
+    }
+    for(int i=0; i<m_numberThreads; i++)
+    {
+        //t[i].detach();
+        t[i].join();
     }
     //calculateNewPos();
     updateSize();
@@ -159,11 +168,6 @@ void ParticleManager::update()
     addParticle();
     checkCollision();
     colliding();
-    for(int i=0; i<m_numberThreads; i++)
-    {
-        //t[i].detach();
-        t[i].join();
-    }
 }
 
 //deals with moving particles back to the top again

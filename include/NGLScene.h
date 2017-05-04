@@ -11,6 +11,7 @@
 #include <QResizeEvent>
 #include <QOpenGLWidget>
 #include <memory>
+#include <thread>
 #include "WindowParams.h"
 #include "ParticleManager.h"
 #include "Scenes.h"
@@ -65,6 +66,11 @@ private :
     Scenes objectCollision;
 
 public:
+    //c++11 threads
+    std::thread *t;
+    int m_numberThreads;
+    //drawing particles
+    void drawParticles(int _tid, int _weather);
     //----------------------------------------------------------------------------------------------------------------------
     /// @brief the windows params such as mouse and rotations etc
     //----------------------------------------------------------------------------------------------------------------------
